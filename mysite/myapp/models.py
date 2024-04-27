@@ -6,6 +6,28 @@ from django.utils import timezone
 
 
 # Create your models here.
+
+# userprofile start
+class UserProfile(models.Model):
+    def __str__(self):
+        return self.fullname()
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def fullname(self):
+        return f"{self.user.first_name} {self.user.last_name}"
+
+    age = models.IntegerField()
+    address = models.CharField(max_length=255)
+    mobile = models.CharField(max_length=15)
+    GENDER = (
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+    )
+    gender = models.CharField(max_length=10, choices=GENDER)
+
+
+
 # Medicine part start
 class Medicines(models.Model):
     def __str__(self):
