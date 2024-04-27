@@ -6,6 +6,13 @@ from . import views
 
 
 urlpatterns =[
+    # admin and basic urls
+    path('', views.home, name='home'),
+    path('home/', views.home, name='home'),
+    path('about/', views.about, name='about'),
+    path('contact/', views.contact, name='contact'),
+    path('FAQ/', views.FAQ, name='FAQ'),
+
 # product urls
     path('products/', views.products, name='products'),
     path('product_search/', views.product_search, name='product_search'),
