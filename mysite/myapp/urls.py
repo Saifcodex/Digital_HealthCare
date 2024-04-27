@@ -1,8 +1,19 @@
+from django.contrib import admin
+from django.urls import path
+from django.views.generic import RedirectView
 
+from . import views
 
 
 urlpatterns =[
-
+# product urls
+    path('products/', views.products, name='products'),
+    path('product_search/', views.product_search, name='product_search'),
+    path('cart/', views.cart, name='cart'),
+    path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+    path('update_cart/<int:product_id>/', views.update_cart, name='update_cart'),
+    path('remove_from_cart/<int:product_id>/', views.remove_from_cart, name='remove_from_cart'),
+    path('checkout/', views.checkout, name='checkout'),
 
 
 # doctor appointment urls
