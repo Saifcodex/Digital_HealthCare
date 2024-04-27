@@ -26,6 +26,14 @@ class UserProfile(models.Model):
     )
     gender = models.CharField(max_length=10, choices=GENDER)
 
+@receiver(pre_delete, sender=User)
+def delete_user_profile(sender, instance, **kwargs):
+    try:
+        profile = UserProfile.objects.get(user=instance)
+        profile.delete()
+    except UserProfile.DoesNotExist:
+        pass
+
 
 
 # Medicine part start
