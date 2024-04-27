@@ -237,4 +237,14 @@ def add_to_cart(request, product_id):
     else:
         return redirect('products')
 
+    @login_required
+    def remove_from_cart(request, product_id):
+        if request.method == 'POST':
+            user = request.user
+            product = get_object_or_404(Medicines, pk=product_id)
+            cart_item = CartItem.objects.get(user=user, accessory=product)
+            cart_item.delete()
+            messages.success(request, "Item removed from your cart.")
+        return redirect('cart')
+
 
