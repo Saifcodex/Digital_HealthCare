@@ -106,3 +106,12 @@ class CartItem1(models.Model):
     accessory1 = models.ForeignKey(Equipments, on_delete=models.CASCADE)
     quantity1 = models.IntegerField(default=1)
     total_cost1 = models.IntegerField(null=True)
+
+class Bill1(models.Model):
+    def __str__(self):
+        return f"{self.customer.username} - {self.created_at}"
+
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    total_cost1 = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(default=timezone.now)
+    accessories1 = models.ManyToManyField(Equipments, through='BillItem1')
