@@ -148,7 +148,14 @@ def user_profile(request):
     return render(request, 'user_profile.html', context)
 
 
+@login_required
+def logout(request):
+    user = request.user
+    CartItem.objects.filter(user=user).delete()
 
+    auth_logout(request)
+    messages.success(request, "Logged out Successfully!")
+    return redirect('home')
 
 
 # doctor function started
