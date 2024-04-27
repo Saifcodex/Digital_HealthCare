@@ -370,3 +370,13 @@ def add_to_cart1(request, equipment_id):
         return redirect(reverse('equipments'))
     else:
         return redirect('equipments')
+
+@login_required
+def remove_from_cart1(request, equipment_id):
+    if request.method == 'POST':
+        user = request.user
+        equipments = get_object_or_404(Equipments, pk=equipment_id)
+        cart_item1 = CartItem1.objects.get(user=user, accessory1=equipments)
+        cart_item1.delete()
+        messages.success(request, "Item removed from your cart.")
+    return redirect('cart1')
