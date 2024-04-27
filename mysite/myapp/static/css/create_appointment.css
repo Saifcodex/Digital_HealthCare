@@ -1,0 +1,97 @@
+.container{
+    text-align: left;
+    min-width: 600px;
+    min-height: 580px;
+    margin: 50px auto;
+    padding: 50px;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(69, 69, 69, 0.355);
+    background-color: rgba(139, 199, 255, 0.282);
+    backdrop-filter: blur(20px);
+}
+h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h2 {
+    text-align: left;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+label {
+    text-align: left;
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+input[type="date"],
+textarea {
+    font-family: 'Mooli', sans-serif;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+
+textarea:focus-visible, textarea:active{
+    overflow: hidden;
+    outline: none;
+    border: none;
+}
+
+button {
+    font-family: 'Mooli', sans-serif;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    margin: 0px 40%;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.custom-select {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.custom-select label {
+    font-family: 'Mooli', sans-serif;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.custom-select select {
+    font-family: 'Mooli', sans-serif;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.custom-select select option {
+    font-family: 'Mooli', sans-serif;
+    padding: 10px;
+    background-color: #fff;
+    color: #000;
+}
+
+.custom-select select:focus {
+    outline: none;
+    border-color: #007bff;
+}

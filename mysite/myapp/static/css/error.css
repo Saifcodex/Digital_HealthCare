@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Mooli&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+body {
+    font-family: 'Mooli', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    text-align: center;
+    /*background-image: url(../image/background.png);*/
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+    background-attachment: fixed;
+    flex-direction: column;
+    }
+
+.error-container {
+    width: 800px;
+    margin: 100px auto;
+    height: 380px;
+    padding: 50px 100px;
+    border-radius: 5px;
+    color: white;
+    vertical-align: top;
+    box-shadow: 0 0 10px rgba(69, 69, 69, 0.355);
+    background-color: rgba(139, 199, 255, 0.177);
+    backdrop-filter: blur(20px);
+}
+
+.error-message {
+    margin-top: 80px;
+    font-size: 34px;
+    margin-bottom: 40px;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.button {
+    font-size: 20px;
+    display: inline-block;
+    padding: 15px 30px;
+    margin: 0 10px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #2980b9;
+}

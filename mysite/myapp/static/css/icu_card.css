@@ -1,0 +1,76 @@
+.doctor-profile-container{
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    margin: 50px;
+
+}
+
+.doctor-card {
+  background-color: #1A76D1;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+    width: calc(33.3% - 20px);
+
+}
+
+.doctor-info {
+     text-align: center;
+}
+p {
+    color: white;
+}
+
+.doctor-name {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.doctor-specialty {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.doctor-cost {
+  color: yellow;
+  font-weight: bold;
+}
+
+.appointment-slots {
+  text-align: center;
+}
+
+.appointment-slots strong {
+  color: #000000;
+}
+
+.action-buttons {
+  text-align: center;
+    color: white;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+
+
+}
+.create-appointment-button:hover{
+    background-color: #005ea6;
+
+
+}
+
+.create-appointment-button {
+    background-color: #011625;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.unavailable {
+  color: red;
+}
