@@ -304,3 +304,24 @@ def equipments(request):
     }
 
     return render(request, 'equipments.html', context)
+
+def equipment_search(request):
+    query1 = request.GET.get('q')
+
+    if query1:
+        equipments = Equipments.objects.filter(
+            Q(e_name__icontains=query1) | Q(e_description__icontains=query1)
+        )
+    else:
+        messages.error(request, "Search bar was empty")
+        return redirect('equipments')
+
+    if not equipments:
+        messages.error(request, "No product found")
+        return redirect('equipments')
+
+    context = {
+        'equipments': equipments,
+    }
+
+    return render(request, 'equipments.html', context)
