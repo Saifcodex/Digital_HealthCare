@@ -22,6 +22,15 @@ urlpatterns =[
     path('remove_from_cart/<int:product_id>/', views.remove_from_cart, name='remove_from_cart'),
     path('checkout/', views.checkout, name='checkout'),
 
+    # Equipments
+    path('equipments/', views.equipments, name='equipments'),
+    path('equipment_search/', views.equipment_search, name='equipment_search'),
+    path('cart1/', views.cart1, name='cart1'),
+    path('add_to_cart1/<int:equipment_id>/', views.add_to_cart1, name='add_to_cart1'),
+    path('update_cart1/<int:equipment_id>/', views.update_cart1, name='update_cart1'),
+    path('remove_from_cart1/<int:equipment_id>/', views.remove_from_cart1, name='remove_from_cart1'),
+    path('checkout1/', views.checkout1, name='checkout1'),
+
 
 # doctor appointment urls
     path('doctors/', views.doctors, name='doctors'),
