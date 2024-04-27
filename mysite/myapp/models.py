@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from django.db.models.signals import pre_delete
 from django.utils import timezone
 
+
 # Create your models here.
 # Medicine part start
 class Medicines(models.Model):
@@ -18,6 +19,7 @@ class Medicines(models.Model):
     v_name = models.CharField(max_length=100)
     v_description = models.CharField(max_length=100)
 
+
 class CartItem(models.Model):
     def __str__(self):
         return self.user.username
@@ -26,6 +28,7 @@ class CartItem(models.Model):
     accessory = models.ForeignKey(Medicines, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     total_cost = models.IntegerField(null=True)
+
 
 class Bill(models.Model):
     def __str__(self):
@@ -36,13 +39,12 @@ class Bill(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     accessories = models.ManyToManyField(Medicines, through='BillItem')
 
+
 class BillItem(models.Model):
     bill = models.ForeignKey(Bill, on_delete=models.CASCADE)
     accessory = models.ForeignKey(Medicines, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     total_cost = models.DecimalField(max_digits=10, decimal_places=2)
-
-
 
 
 # doctor modal started
@@ -59,7 +61,6 @@ class Doctor(models.Model):
     next_available_appointment_date = models.DateField(null=True, blank=True)
 
 
-
 class DoctorTimeSlot(models.Model):
     def __str__(self):
         return f"{self.doctor.name} ({self.start_time} - {self.end_time})"
@@ -67,6 +68,7 @@ class DoctorTimeSlot(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     start_time = models.TimeField()
     end_time = models.TimeField()
+
 
 class Appointment(models.Model):
     def __str__(self):
@@ -94,3 +96,13 @@ class Equipments(models.Model):
     e_count = models.IntegerField()
     vendor_name = models.CharField(max_length=100)
     vendor_description = models.CharField(max_length=100)
+
+
+class CartItem1(models.Model):
+    def __str__(self):
+        return self.user.username
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    accessory1 = models.ForeignKey(Equipments, on_delete=models.CASCADE)
+    quantity1 = models.IntegerField(default=1)
+    total_cost1 = models.IntegerField(null=True)
