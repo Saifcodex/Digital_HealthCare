@@ -247,4 +247,24 @@ def add_to_cart(request, product_id):
             messages.success(request, "Item removed from your cart.")
         return redirect('cart')
 
+    @login_required
+    def update_cart(request, product_id):
+        if request.method == 'POST':
+            user = request.user
+            product = get_object_or_404(Medicines, pk=product_id)
+            quantity = int(request.POST.get('quantity', 1))
+            cart_item = CartItem.objects.get(user=user, accessory=product)
+
+            if quantity > 0:
+                cart_item.quantity = quantity
+                cart_item.total_cost = cart_item.quantity * cart_item.accessory.p_cost
+                cart_item.save()
+                messages.success(request, "Cart item updated.")
+            else:
+                cart_item.delete()
+                messages.success(request, "Item removed from your cart.")
+            cart_item = CartItem.objects.get(user=user, accessory=product)
+
+        return redirect('cart')
+
 
