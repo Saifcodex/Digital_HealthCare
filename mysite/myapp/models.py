@@ -30,3 +30,13 @@ class Doctor(models.Model):
     cost = models.IntegerField()
     available_spots = models.PositiveIntegerField()
     next_available_appointment_date = models.DateField(null=True, blank=True)
+
+
+
+class DoctorTimeSlot(models.Model):
+    def __str__(self):
+        return f"{self.doctor.name} ({self.start_time} - {self.end_time})"
+
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
