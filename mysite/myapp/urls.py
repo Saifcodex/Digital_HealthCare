@@ -44,5 +44,9 @@ urlpatterns =[
     path('create_appointment/<int:doctor_id>/', views.create_appointment, name='create_appointment'),
     path('cancel_appointment/<int:appointment_id>/<int:doctor_id>/', views.cancel_appointment, name='cancel_appointment'),
 
+    # error handaling urls
+    path('custom_error/', views.custom_error, name='custom_error'),
+    path('<path:undefined_path>/', RedirectView.as_view(url='/custom_error/')),
+
 
 ]
