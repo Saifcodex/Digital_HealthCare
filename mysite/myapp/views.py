@@ -380,3 +380,23 @@ def remove_from_cart1(request, equipment_id):
         cart_item1.delete()
         messages.success(request, "Item removed from your cart.")
     return redirect('cart1')
+
+@login_required
+def update_cart1(request, equipment_id):
+    if request.method == 'POST':
+        user = request.user
+        equipments = get_object_or_404(Equipments, pk=equipment_id)
+        quantity1 = int(request.POST.get('quantity1', 1))
+        cart_item1 = CartItem1.objects.get(user=user, accessory1=equipments)
+
+        if quantity1 > 0:
+            cart_item1.quantity1 = quantity1
+            cart_item1.total_cost1 = cart_item1.quantity1 * cart_item1.accessory1.e_cost
+            cart_item1.save()
+            messages.success(request, "Cart item updated.")
+        else:
+            cart_item1.delete()
+            messages.success(request, "Item removed from your cart.")
+        cart_item1 = CartItem1.objects.get(user=user, accessory1=equipments)
+
+    return redirect('cart1')
