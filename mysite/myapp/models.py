@@ -45,8 +45,6 @@ class BillItem(models.Model):
 
 
 
-
-
 # doctor modal started
 class Doctor(models.Model):
     def __str__(self):
@@ -82,3 +80,17 @@ class Appointment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     serial_number = models.PositiveIntegerField(default=0)
 
+
+# Equipment start
+
+class Equipments(models.Model):
+    def __str__(self):
+        return self.e_name
+
+    e_image = models.ImageField()
+    e_name = models.CharField(max_length=100)
+    e_description = models.CharField(max_length=1000)
+    e_cost = models.IntegerField()
+    e_count = models.IntegerField()
+    vendor_name = models.CharField(max_length=100)
+    vendor_description = models.CharField(max_length=100)
