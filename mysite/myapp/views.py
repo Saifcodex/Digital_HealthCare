@@ -294,3 +294,13 @@ def add_to_cart(request, product_id):
         return render(request, 'checkout.html', context)
 
 
+# Equipments
+
+def equipments(request):
+    equipments = Equipments.objects.all()
+
+    context = {
+        'equipments': equipments,
+    }
+
+    return render(request, 'equipments.html', context)
