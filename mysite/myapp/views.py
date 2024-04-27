@@ -34,3 +34,13 @@ def contact(request):
 
 def FAQ(request):
     return render(request, 'FAQ.html')
+
+
+# doctor function started
+
+def doctors(request):
+    doctors = Doctor.objects.all()
+    context = {
+        'doctors': doctors
+    }
+    return render(request, "doctors.html", context)
