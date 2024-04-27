@@ -158,3 +158,139 @@ def cancel_appointment(request, appointment_id, doctor_id):
     return redirect('user_profile')
 
 
+
+# Medicine function start
+def products(request):
+    products = Medicines.objects.all()
+
+    context = {
+        'products': products,
+    }
+
+    return render(request, 'medicines.html', context)
+
+def product_search(request):
+    query = request.GET.get('q')
+
+    if query:
+        products = Medicines.objects.filter(
+            Q(p_name__icontains=query) | Q(p_description__icontains=query)
+        )
+    else:
+        messages.error(request, "Search bar was empty")
+        return redirect('medicines')
+
+    if not products:
+        messages.error(request, "No product found")
+        return redirect('medicines')
+
+    context = {
+        'products': products,
+    }
+
+    return render(request, 'medicines.html', context)
+
+
+@login_required
+def cart(request):
+    user = request.user
+    cart_items = CartItem.objects.filter(user=user)
+
+    for item in cart_items:
+        item.total_cost = item.accessory.p_cost * item.quantity
+
+    total_cost = sum(item.total_cost for item in cart_items)
+
+    context = {
+        'cart_items': cart_items,
+        'total_cost': total_cost
+    }
+    return render(request, 'cart.html', context)
+
+
+@login_required
+def add_to_cart(request, product_id):
+    if request.method == 'POST':
+        user = request.user
+        product = get_object_or_404(Medicines, pk=product_id)
+        quantity = int(request.POST.get('quantity', 0))
+
+        if quantity <= 0:
+            messages.error(request, "Add at least 1 item!")
+            return redirect(reverse('products'))
+
+        if quantity > product.p_count:
+            messages.error(request, "Out of stock!")
+            return redirect(reverse('products'))
+
+        cart_item, created = CartItem.objects.get_or_create(user=user, accessory=product)
+
+        if created:
+            cart_item.quantity = quantity
+        else:
+            cart_item.quantity += quantity
+
+        cart_item.total_cost = cart_item.quantity * cart_item.accessory.p_cost
+        cart_item.save()
+        messages.success(request, "Successfully added")
+        return redirect(reverse('products'))
+    else:
+        return redirect('products')
+
+    @login_required
+    def remove_from_cart(request, product_id):
+        if request.method == 'POST':
+            user = request.user
+            product = get_object_or_404(Medicines, pk=product_id)
+            cart_item = CartItem.objects.get(user=user, accessory=product)
+            cart_item.delete()
+            messages.success(request, "Item removed from your cart.")
+        return redirect('cart')
+
+    @login_required
+    def update_cart(request, product_id):
+        if request.method == 'POST':
+            user = request.user
+            product = get_object_or_404(Medicines, pk=product_id)
+            quantity = int(request.POST.get('quantity', 1))
+            cart_item = CartItem.objects.get(user=user, accessory=product)
+
+            if quantity > 0:
+                cart_item.quantity = quantity
+                cart_item.total_cost = cart_item.quantity * cart_item.accessory.p_cost
+                cart_item.save()
+                messages.success(request, "Cart item updated.")
+            else:
+                cart_item.delete()
+                messages.success(request, "Item removed from your cart.")
+            cart_item = CartItem.objects.get(user=user, accessory=product)
+
+        return redirect('cart')
+
+    @login_required
+    def checkout(request):
+        user = request.user
+        cart_items = CartItem.objects.filter(user=user)
+
+        new_bill = Bill.objects.create(customer=user, total_cost=0, created_at=timezone.now())
+
+        for item in cart_items:
+            if item.accessory.p_count >= item.quantity:
+                item.accessory.p_count -= item.quantity
+                item.accessory.save()
+                BillItem.objects.create(
+                    bill=new_bill,
+                    accessory=item.accessory,
+                    quantity=item.quantity,
+                    total_cost=item.total_cost
+                )
+
+        new_bill.save()
+        cart_items.delete()
+        messages.success(request, "Checkout successful.")
+        context = {
+            'new_bill': new_bill,
+        }
+        return render(request, 'checkout.html', context)
+
+
