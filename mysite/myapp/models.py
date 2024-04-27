@@ -115,3 +115,12 @@ class Bill1(models.Model):
     total_cost1 = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(default=timezone.now)
     accessories1 = models.ManyToManyField(Equipments, through='BillItem1')
+
+class BillItem1(models.Model):
+    bill1 = models.ForeignKey(Bill1, on_delete=models.CASCADE)
+    accessory1 = models.ForeignKey(Equipments, on_delete=models.CASCADE)
+    quantity1 = models.IntegerField()
+    total_cost1 = models.DecimalField(max_digits=10, decimal_places=2)
+
+
+# Equipments end
