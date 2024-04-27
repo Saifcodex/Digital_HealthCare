@@ -169,4 +169,25 @@ def products(request):
 
     return render(request, 'medicines.html', context)
 
+def product_search(request):
+    query = request.GET.get('q')
+
+    if query:
+        products = Medicines.objects.filter(
+            Q(p_name__icontains=query) | Q(p_description__icontains=query)
+        )
+    else:
+        messages.error(request, "Search bar was empty")
+        return redirect('medicines')
+
+    if not products:
+        messages.error(request, "No product found")
+        return redirect('medicines')
+
+    context = {
+        'products': products,
+    }
+
+    return render(request, 'medicines.html', context)
+
 
