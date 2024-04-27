@@ -208,3 +208,33 @@ def cart(request):
     return render(request, 'cart.html', context)
 
 
+@login_required
+def add_to_cart(request, product_id):
+    if request.method == 'POST':
+        user = request.user
+        product = get_object_or_404(Medicines, pk=product_id)
+        quantity = int(request.POST.get('quantity', 0))
+
+        if quantity <= 0:
+            messages.error(request, "Add at least 1 item!")
+            return redirect(reverse('products'))
+
+        if quantity > product.p_count:
+            messages.error(request, "Out of stock!")
+            return redirect(reverse('products'))
+
+        cart_item, created = CartItem.objects.get_or_create(user=user, accessory=product)
+
+        if created:
+            cart_item.quantity = quantity
+        else:
+            cart_item.quantity += quantity
+
+        cart_item.total_cost = cart_item.quantity * cart_item.accessory.p_cost
+        cart_item.save()
+        messages.success(request, "Successfully added")
+        return redirect(reverse('products'))
+    else:
+        return redirect('products')
+
+
