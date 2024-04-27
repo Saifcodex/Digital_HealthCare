@@ -35,6 +35,35 @@ def contact(request):
 def FAQ(request):
     return render(request, 'FAQ.html')
 
+def custom_error(request, ):
+    return render(request, 'error.html')
+
+
+def login(request):
+    if request.method == "POST":
+        form = Captcha(request.POST)
+        if form.is_valid():
+            username = request.POST.get("u_name")
+            password = request.POST.get("u_password")
+            authenticated_user = authenticate(request, username=username, password=password)
+
+            if authenticated_user is not None:
+                auth_login(request, authenticated_user)
+                messages.success(request, f"Welcome, {username}!")
+                return redirect("home")
+            else:
+                messages.error(request, "Invalid username or password.")
+        else:
+            messages.error(request, "reCAPTCHA verification failed. Please try again.")
+
+    else:
+        form = Captcha()
+
+    return render(request, "login.html", {"form": form})
+
+
+
+
 
 # doctor function started
 
