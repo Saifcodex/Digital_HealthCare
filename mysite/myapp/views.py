@@ -341,3 +341,32 @@ def cart1(request):
         'total_cost1': total_cost1
     }
     return render(request, 'cart1.html', context)
+
+@login_required
+def add_to_cart1(request, equipment_id):
+    if request.method == 'POST':
+        user = request.user
+        equipments = get_object_or_404(Equipments, pk=equipment_id)
+        quantity1 = int(request.POST.get('quantity1', 0))
+
+        if quantity1 <= 0:
+            messages.error(request, "Add at least 1 item!")
+            return redirect(reverse('equipments'))
+
+        if quantity1 > equipments.e_count:
+            messages.error(request, "Out of stock!")
+            return redirect(reverse('equipments'))
+
+        cart_item1, created = CartItem1.objects.get_or_create(user=user, accessory1=equipments)
+
+        if created:
+            cart_item1.quantity1 = quantity1
+        else:
+            cart_item1.quantity1 += quantity1
+
+        cart_item1.total_cost1 = cart_item1.quantity1 * cart_item1.accessory1.e_cost
+        cart_item1.save()
+        messages.success(request, "Successfully added")
+        return redirect(reverse('equipments'))
+    else:
+        return redirect('equipments')
