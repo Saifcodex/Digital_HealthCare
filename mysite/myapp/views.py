@@ -142,4 +142,19 @@ def create_appointment(request, doctor_id):
     return render(request, 'create_appointment.html', context)
 
 
+def cancel_appointment(request, appointment_id, doctor_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+    doctor = get_object_or_404(Doctor, id=doctor_id)
+
+    if appointment.user == request.user:
+        doctor.available_spots += 1
+        doctor.save()
+        appointment.serial_number -= 1
+        appointment.delete()
+        messages.success(request, "Appointment canceled successfully.")
+    else:
+        messages.error(request, "You are not authorized to cancel this appointment.")
+
+    return redirect('user_profile')
+
 
