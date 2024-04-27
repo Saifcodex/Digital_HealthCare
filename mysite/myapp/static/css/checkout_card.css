@@ -1,0 +1,54 @@
+/* CSS for checkout cart */
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-table th, .cart-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.cart-table th {
+  background-color: #f2f2f2;
+}
+
+.cart-actions {
+  display: flex;
+  align-items: center;
+}
+
+.cart-actions button {
+  cursor: pointer;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.update-button {
+  background-color: green;
+  color: white;
+}
+
+.remove-button {
+  background-color: red;
+  color: white;
+}
+
+.cart-total {
+  margin-top: 20px;
+}
+
+.checkout-button a {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.checkout-button a:hover {
+  background-color: #0056b3;
+}
