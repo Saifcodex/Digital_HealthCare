@@ -191,3 +191,20 @@ def product_search(request):
     return render(request, 'medicines.html', context)
 
 
+@login_required
+def cart(request):
+    user = request.user
+    cart_items = CartItem.objects.filter(user=user)
+
+    for item in cart_items:
+        item.total_cost = item.accessory.p_cost * item.quantity
+
+    total_cost = sum(item.total_cost for item in cart_items)
+
+    context = {
+        'cart_items': cart_items,
+        'total_cost': total_cost
+    }
+    return render(request, 'cart.html', context)
+
+
