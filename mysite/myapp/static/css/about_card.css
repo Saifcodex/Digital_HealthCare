@@ -1,0 +1,73 @@
+.about-us {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #000000;
+  background-color: rgba(255, 255, 255, 0.519);
+  box-shadow: 0 0 30px rgba(42, 42, 42, 0.745);
+}
+
+h2 {
+  font-size: 34px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.allcard{
+  display: flex;
+  justify-content: center;
+}
+.ourteam{
+  text-align: center;
+}
+.team-member {
+  display: inline-block;
+  justify-content: center;
+  margin: 20px;
+  padding: 70px 40px;
+  text-align: center;
+  vertical-align: top;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(69, 69, 69, 0.355);
+  background-color: rgba(46, 154, 255, 0.282);
+  backdrop-filter: blur(20px);
+  transition: transform 0.3s ease-in-out;
+}
+
+.team-member:hover {
+  transform: translateY(-10px);
+}
+
+.team-member img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.team-member h3 {
+  font-size: 20px;
+  margin: 10px;
+}
+
+.team-member p {
+  padding-top: 10px;
+  font-size: 16px;
+}
+
+.project-description {
+  margin: 150px;
+}
+.project-description h3 {
+  font-size: 28px;
+  margin: 80px auto 0px;
+  width: fit-content;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.project-description p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  text-align: justify;
+
+}
