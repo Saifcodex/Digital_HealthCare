@@ -400,3 +400,29 @@ def update_cart1(request, equipment_id):
         cart_item1 = CartItem1.objects.get(user=user, accessory1=equipments)
 
     return redirect('cart1')
+
+@login_required
+def checkout1(request):
+    user = request.user
+    cart_items1 = CartItem1.objects.filter(user=user)
+
+    new_bill1 = Bill1.objects.create(customer=user, total_cost1=0, created_at=timezone.now())
+
+    for item1 in cart_items1:
+        if item1.accessory1.e_count >= item1.quantity1:
+            item1.accessory1.e_count -= item1.quantity1
+            item1.accessory1.save()
+            BillItem1.objects.create(
+                bill1=new_bill1,
+                accessory1=item1.accessory1,
+                quantity1=item1.quantity1,
+                total_cost1=item1.total_cost1
+            )
+
+    new_bill1.save()
+    cart_items1.delete()
+    messages.success(request, "Checkout successful.")
+    context = {
+        'new_bill1': new_bill1,
+    }
+    return render(request, 'checkout1.html', context)
