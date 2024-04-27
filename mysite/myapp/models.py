@@ -5,6 +5,7 @@ from django.db.models.signals import pre_delete
 from django.utils import timezone
 
 # Create your models here.
+# Medicine part start
 class Medicines(models.Model):
     def __str__(self):
         return self.p_name
@@ -16,6 +17,15 @@ class Medicines(models.Model):
     p_count = models.IntegerField()
     v_name = models.CharField(max_length=100)
     v_description = models.CharField(max_length=100)
+
+class CartItem(models.Model):
+    def __str__(self):
+        return self.user.username
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    accessory = models.ForeignKey(Medicines, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    total_cost = models.IntegerField(null=True)
 
 
 # doctor modal started
