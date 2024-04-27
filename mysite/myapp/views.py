@@ -267,4 +267,30 @@ def add_to_cart(request, product_id):
 
         return redirect('cart')
 
+    @login_required
+    def checkout(request):
+        user = request.user
+        cart_items = CartItem.objects.filter(user=user)
+
+        new_bill = Bill.objects.create(customer=user, total_cost=0, created_at=timezone.now())
+
+        for item in cart_items:
+            if item.accessory.p_count >= item.quantity:
+                item.accessory.p_count -= item.quantity
+                item.accessory.save()
+                BillItem.objects.create(
+                    bill=new_bill,
+                    accessory=item.accessory,
+                    quantity=item.quantity,
+                    total_cost=item.total_cost
+                )
+
+        new_bill.save()
+        cart_items.delete()
+        messages.success(request, "Checkout successful.")
+        context = {
+            'new_bill': new_bill,
+        }
+        return render(request, 'checkout.html', context)
+
 
