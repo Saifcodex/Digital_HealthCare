@@ -13,6 +13,12 @@ urlpatterns =[
     path('contact/', views.contact, name='contact'),
     path('FAQ/', views.FAQ, name='FAQ'),
 
+    # user acc urls
+    path('login/', views.login, name='login'),
+    path('register/', views.register, name='register'),
+    path('user_profile/', views.user_profile, name='user_profile'),
+    path('logout/', views.logout, name='logout'),
+
 # product urls
     path('products/', views.products, name='products'),
     path('product_search/', views.product_search, name='product_search'),
