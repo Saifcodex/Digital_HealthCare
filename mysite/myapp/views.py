@@ -99,6 +99,55 @@ def register(request):
     return render(request, "register.html", {"form": form})
 
 
+from django.db.models import Sum
+
+
+def user_profile(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    profile_form = UserProfileForm(instance=user_profile)
+    user_form = UserForm(instance=request.user)
+    appointments = Appointment.objects.filter(user=request.user)
+    bookings = Booking.objects.filter(user=request.user)
+
+    # Use a different name for the annotated field, e.g., 'total_item_cost'
+    bills = Bill.objects.filter(customer=request.user).prefetch_related(
+        Prefetch('billitem_set', queryset=BillItem.objects.select_related('accessory'))
+    ).annotate(total_item_cost=Sum('billitem__total_cost'))
+
+    bills1 = Bill1.objects.filter(customer=request.user).prefetch_related(
+        Prefetch('billitem1_set', queryset=BillItem1.objects.select_related('accessory1'))
+    ).annotate(total_item_cost1=Sum('billitem1__total_cost1'))
+
+    if request.method == "POST":
+        if "delete_account" in request.POST:
+            request.user.delete()
+            auth_logout(request)
+            messages.success(request, "Your account has been deleted.")
+            return redirect('login')
+
+        profile_form = UserProfileForm(request.POST, instance=user_profile)
+        user_form = UserForm(request.POST, instance=request.user)
+
+        if profile_form.is_valid() and user_form.is_valid():
+            profile_form.save()
+            user_form.save()
+            messages.success(request, "Profile updated successfully.")
+            return redirect('user_profile')
+        else:
+            messages.error(request, "Error updating profile. Please check the form.")
+
+    context = {
+        'user_profile': user_profile,
+        'profile_form': profile_form,
+        'user_form': user_form,
+        'appointments': appointments,
+        'bills': bills,
+        'bills1': bills1,
+        'bookings': bookings,
+    }
+    return render(request, 'user_profile.html', context)
+
+
 
 
 
@@ -303,7 +352,7 @@ def add_to_cart(request, product_id):
     else:
         return redirect('products')
 
-    @login_required
+   @login_required
     def remove_from_cart(request, product_id):
         if request.method == 'POST':
             user = request.user
