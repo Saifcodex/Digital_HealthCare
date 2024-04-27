@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!-- Header Inner -->
+			<div class="header-inner">
+				<div class="container">
+					<div class="inner">
+						<div class="row">
+							<div class="col-lg-3 col-md-3 col-12">
+								<!-- Start Logo -->
+								<div class="logo">
+									<a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="#"></a>
+								</div>
+								<!-- End Logo -->
+								<!-- Mobile Nav -->
+								<div class="mobile-nav"></div>
+								<!-- End Mobile Nav -->
+							</div>
+							<div class="col-lg-7 col-md-9 col-12">
+								<!-- Main Menu -->
+								<div class="main-menu">
+									<nav class="navigation">
+										<ul class="nav menu">
+											<li><a href="{% url 'home' %}">Home </a></li>
+											<li ><a href="{% url 'doctors' %}">Doctors</a></li>
+											<li ><a href="{% url 'products' %}">Medicines</a></li>
+											<li class="active"><a href="{% url 'equipments' %}">Equipments</a></li>
+											<li><a href="{% url 'beds' %}">ICU Beds </a></li>
+											<li><a href="{% url 'donors' %}">Donors </a></li>
+											<li>
+								<div class="get-quote" >
+									{% if user.is_authenticated %}
+									     {% if user.is_superuser %}
+									        <a href="{% url 'admin:index' %}"  class="btn" style="color: white; padding: 10px 10px 10px 10px;">Admin Panel</a><br>
+									     {% else %}
+									         <a href="{% url 'user_profile' %}" class="btn"  style="color: white; padding: 10px 10px 10px 10px;">{{ user.username }}</a><br>
+									     {% endif %}
+									{% else %}
+									   <a href="{% url 'login' %}" class="btn" style="color: white; padding: 10px 10px 10px 10px;">Login</a><br>
+									{% endif %}
+								</div>
+
+											</li>
+										</ul>
+									</nav>
+								</div>
+								<!--/ End Main Menu -->
+							</div>
+<!--LOGIN BAr Start-->
+
+
+							<div class="col-lg-2 col-12">
+								<div class="get-quote">
+									{% if user.is_authenticated %}
+									     {% if user.is_superuser %}
+									        <a href="{% url 'logout' %}" class="btn btn-sm" >Signout</a>
+									     {% else %}
+
+									         <a href="{% url 'logout' %}" class="btn btn-sm" >Sign out</a>
+									     {% endif %}
+									{% else %}
+									   <a href="{% url 'register' %}" class="btn" >Sign-up</a>
+									{% endif %}
+								</div>
+                            </div>
+
+
+
+<!--                            <div class="col-lg-2 col-12">-->
+<!--								<div class="get-quote">-->
+<!--									{% if user.is_authenticated %}-->
+<!--									     {% if user.is_superuser %}-->
+<!--									        <a href="{% url 'admin:index' %}"  >Admin Panel</a><br>-->
+<!--									        <a href="{% url 'logout' %}" class="btn btn-sm" >Signout</a>-->
+<!--									     {% else %}-->
+<!--									         <a href="{% url 'user_profile' %}" class="btn" >{{ user.username }}</a><br>-->
+<!--									         <a href="{% url 'logout' %}" class="btn btn-sm" >Sign out</a>-->
+<!--									     {% endif %}-->
+<!--									{% else %}-->
+<!--									   <a href="{% url 'login' %}" class="btn" >Login</a><br>-->
+<!--									   <a href="{% url 'register' %}" class="btn" >Sign-up</a>-->
+<!--									{% endif %}-->
+<!--								</div>-->
+<!--                            </div>-->
+
+<!--LOGIN BAr End-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/ End Header Inner -->
+		</header>
+		<!-- End Header Area -->
+{% block extra-styles %}
+    <link rel="stylesheet" href="{% static 'css/medicines_card.css' %}">
+     <link rel="stylesheet" href="{% static 'css/search.css' %}">
+{% endblock %}
+
+<!--Content start from here-->
+
+<div class="main-container">
+<!--    Search Start-->
+    <div class="search-container">
+        <form id="search-form" action="{% url 'equipment_search' %}" method="get">
+            <input type="text" id="search-input" name="q" placeholder="Search products...">
+            <button type="submit" id="search-button">Search</button>
+        </form>
+    </div>
+<!--Search End Here-->
+
+    <div class="container" id="product-container">
+        {% if equipments %}
+            {% for equipment in equipments %}
+                <div class="product-card">
+                   <div class="img1"> <img src="{% static 'img/'|add:equipment.e_image.url %}" alt="Product Image" class="product-image"></div>
+                    <h2 class="product-title">{{ equipment.e_name }}</h2>
+                    <p class="product-cost"><strong>Cost:</strong> {{ equipment.e_cost }} tk</p>
+                    <p class="product-count"><strong>In stock:</strong> {{ equipment.e_count }}</p>
+                    <p class="product-description"><strong>Description</strong> {{ equipment.e_description }}</p>
+                    <p class="product-vendor"><strong>Vendor:</strong> {{ equipment.vendor_name }}</p>
+
+                    <div class="product-actions">
+                        <form method="post" action="{% url 'add_to_cart1' equipment.id %}">
+                            {% csrf_token %}
+                            <label for="quantity1">Quantity:</label>
+                            <input type="number" name="quantity1" id="quantity1" min="0" max="10">
+                            <button type="submit">Add</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="go-to-cart-button">
+		<button style="padding: 10px 20px; margin: 5px; height: 40px; width: 120px;background-color: #1a76d1">
+    <a href="{% url 'cart1' %}" style="display: block; height: 100%; width: 100%; text-decoration: none; color: white; ">Go to Cart</a>
+</button>
+
+    </div>
+</div>
+
+{% endblock %}
