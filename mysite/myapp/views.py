@@ -325,3 +325,19 @@ def equipment_search(request):
     }
 
     return render(request, 'equipments.html', context)
+
+@login_required
+def cart1(request):
+    user = request.user
+    cart_items1 = CartItem1.objects.filter(user=user)
+
+    for item1 in cart_items1:
+        item1.total_cost1 = item1.accessory1.e_cost * item1.quantity1
+
+    total_cost1 = sum(item1.total_cost1 for item1 in cart_items1)
+
+    context = {
+        'cart_items1': cart_items1,
+        'total_cost1': total_cost1
+    }
+    return render(request, 'cart1.html', context)
