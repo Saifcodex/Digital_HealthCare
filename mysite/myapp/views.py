@@ -152,7 +152,6 @@ def user_profile(request):
 def logout(request):
     user = request.user
     CartItem.objects.filter(user=user).delete()
-
     auth_logout(request)
     messages.success(request, "Logged out Successfully!")
     return redirect('home')
