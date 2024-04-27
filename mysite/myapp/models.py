@@ -27,6 +27,25 @@ class CartItem(models.Model):
     quantity = models.IntegerField(default=1)
     total_cost = models.IntegerField(null=True)
 
+class Bill(models.Model):
+    def __str__(self):
+        return f"{self.customer.username} - {self.created_at}"
+
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    total_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(default=timezone.now)
+    accessories = models.ManyToManyField(Medicines, through='BillItem')
+
+class BillItem(models.Model):
+    bill = models.ForeignKey(Bill, on_delete=models.CASCADE)
+    accessory = models.ForeignKey(Medicines, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    total_cost = models.DecimalField(max_digits=10, decimal_places=2)
+
+
+
+
+
 
 # doctor modal started
 class Doctor(models.Model):
