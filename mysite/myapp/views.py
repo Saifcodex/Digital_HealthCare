@@ -158,3 +158,15 @@ def cancel_appointment(request, appointment_id, doctor_id):
     return redirect('user_profile')
 
 
+
+# Medicine function start
+def products(request):
+    products = Medicines.objects.all()
+
+    context = {
+        'products': products,
+    }
+
+    return render(request, 'medicines.html', context)
+
+
