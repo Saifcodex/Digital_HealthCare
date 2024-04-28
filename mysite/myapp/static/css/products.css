@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Mooli&display=swap');
+.main-container {
+    min-height: 100vh;
+}
+.search-container {
+    margin: 20px 0px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-container form {
+    font-family: 'Mooli', sans-serif;
+    display: flex;
+    align-items: center;
+}
+
+.search-container input[type="text"] {
+    font-family: 'Mooli', sans-serif;
+    padding: 15px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.search-container :focus-visible{
+    overflow: hidden;
+    outline: none;
+    border: none;
+}
+
+.search-container button {
+    font-family: 'Mooli', sans-serif;
+    padding: 15px 30px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background-color: #0056b3;
+}
+
+.container {
+    color: #000;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    min-height: 55vh;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.product-card {
+    color: #000;
+    width: 280px;
+    height: 520px;
+    margin: 10px;
+    padding: 20px;
+    transition: transform 0.2s;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    text-align: justify;
+    box-shadow: 0 0 10px rgba(69, 69, 69, 0.355);
+    background-color: rgba(221, 221, 221, 0.594);
+    transition: transform 0.3s ease-in-out;
+}
+
+.product-actions {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.product-actions form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-actions label {
+    margin-bottom: 5px;
+}
+.product-card:hover {
+    transform: translateY(-10px);
+}
+
+.img1{
+    background-color: white;
+    width: 280px;
+    position: relative;
+    padding: 20px 0px;
+    left: -20px;
+    top: -20px;
+}
+.img1 img {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+}
+
+.product-title {
+    background-color: white;
+    width: 280px;
+    position: relative;
+    padding: 20px 0px;
+    left: -20px;
+    top: -20px;
+    text-align: center;
+    font-size: 1.25rem;
+    box-shadow: 0 0 10px rgba(69, 69, 69, 1);
+}
+
+.product-category, .product-cost, .product-count, .product-vendor {
+    font-size: 0.9rem;
+    margin: 10px 0;
+}
+.product-card form {
+    font-family: 'Mooli', sans-serif;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.product-card form label {
+    margin-right: 10px;
+}
+.product-card form input[type="number"] {
+    width: 60px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+.product-card form input[type="number"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+.product-card form button {
+    font-family: 'Mooli', sans-serif;
+    background-color: #00ff2a;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    padding: 12px 15px;
+    margin-left: 10px;
+}
+
+.product-card form button:hover {
+    background-color: #81ff87;
+}
+.outside{
+    color: white;
+    font-size: 40px;
+}
+.go-to-cart-button {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.go-to-cart-button a {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.go-to-cart-button a:hover {
+    background-color: #0056b3;
+}

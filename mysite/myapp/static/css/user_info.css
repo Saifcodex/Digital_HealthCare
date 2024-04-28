@@ -1,0 +1,143 @@
+.containerinfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /*min-height: 100vh;*/
+    background-color: #ffffff;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.containerinfo .info {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+     padding: 10px 20px;
+    margin: 10px 0 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+     width: 350px;
+}
+
+.containerinfo .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.containerinfo .button-container button {
+    background-color: #007bff;
+    font-size: 20px;
+    color: #fff;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex: 1;
+}
+
+.containerinfo .button-container button#editButton:hover {
+    background-color: #0018b3;
+}
+
+.containerinfo .button-container button.b2{
+    background-color: #c00909;
+}
+
+.containerinfo .button-container button#saveButton {
+    background-color: #28a745;
+}
+
+.containerinfo .button-container button#saveButton:hover {
+    background-color: #218838;
+}
+
+.containerinfo .button-container button#cancelButton {
+    background-color: #dc3545;
+}
+
+.containerinfo .button-container button#cancelButton:hover {
+    background-color: #c82333;
+}
+
+.containerapp,
+.containerbill {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.containerapp .appointment,
+.containerbill .bill {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 350px;
+    padding: 10px 20px;
+    margin: 10px;
+    box-shadow: 0 0 10px rgba(69, 69, 69, 0.355);
+    background-color: rgba(255, 255, 255, 0.1);
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+h2 {
+    text-align: center;
+    font-size: 24px;
+    padding-top: 20px;
+}
+
+p {
+    padding: 15px 0px;
+}
+
+strong {
+    color: #bcb8fd;
+}
+
+label {
+    padding-bottom: 10px;
+    font-weight: bold;
+    display: block;
+}
+
+input[type="number"],
+input[type="text"],
+#id_email {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#id_gender {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.cancel-appointment {
+    font-family: Mooli, sans-serif;
+    background-color: #dc3545;
+    color: #fff;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    width: 225px;
+    margin: 20px 12%;
+}
+
+.cancel-appointment:hover {
+    background-color: #c82333;
+}
