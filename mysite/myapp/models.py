@@ -125,6 +125,18 @@ class Donor(models.Model):
         ('O-', 'O-'),
     )
 
+    name = models.CharField(max_length=100)
+    age = models.PositiveIntegerField()
+    bloodgroup = models.CharField(max_length=20, choices=BLOOD_GROUP_CHOICES)
+    email = models.EmailField()
+    phone = models.CharField(max_length=11)
+    address = models.CharField(max_length=100)
+    weight = models.PositiveIntegerField()
+    previous_donation_date = models.DateField()
+
+    def __str__(self):
+        return self.name
+
 
 # Equipment start
 
