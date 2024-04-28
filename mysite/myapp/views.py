@@ -35,6 +35,7 @@ def contact(request):
 def FAQ(request):
     return render(request, 'FAQ.html')
 
+
 def custom_error(request, ):
     return render(request, 'error.html')
 
@@ -283,6 +284,7 @@ def donors(request):
     donor = Donor.objects.all()
     return render(request, 'blood_donors.html', {'donor': donor})
 
+
 def blood_search(request):
     query = request.GET.get('q')
     donor = Donor.objects.all()
@@ -305,7 +307,6 @@ def blood_search(request):
     return render(request, 'blood_donors.html', context)
 
 
-
 # Medicine function start
 def products(request):
     products = Medicines.objects.all()
@@ -315,6 +316,7 @@ def products(request):
     }
 
     return render(request, 'medicines.html', context)
+
 
 def product_search(request):
     query = request.GET.get('q')
@@ -384,64 +386,66 @@ def add_to_cart(request, product_id):
     else:
         return redirect('products')
 
+
 @login_required
 def remove_from_cart(request, product_id):
     if request.method == 'POST':
-      user = request.user
-      product = get_object_or_404(Medicines, pk=product_id)
-      cart_item = CartItem.objects.get(user=user, accessory=product)
-      cart_item.delete()
-      messages.success(request, "Item removed from your cart.")
-      return redirect('cart')
-
-    @login_required
-    def update_cart(request, product_id):
-        if request.method == 'POST':
-            user = request.user
-            product = get_object_or_404(Medicines, pk=product_id)
-            quantity = int(request.POST.get('quantity', 1))
-            cart_item = CartItem.objects.get(user=user, accessory=product)
-
-            if quantity > 0:
-                cart_item.quantity = quantity
-                cart_item.total_cost = cart_item.quantity * cart_item.accessory.p_cost
-                cart_item.save()
-                messages.success(request, "Cart item updated.")
-            else:
-                cart_item.delete()
-                messages.success(request, "Item removed from your cart.")
-            cart_item = CartItem.objects.get(user=user, accessory=product)
-
+        user = request.user
+        product = get_object_or_404(Medicines, pk=product_id)
+        cart_item = CartItem.objects.get(user=user, accessory=product)
+        cart_item.delete()
+        messages.success(request, "Item removed from your cart.")
         return redirect('cart')
 
-    @login_required
-    def checkout(request):
+
+@login_required
+def update_cart(request, product_id):
+    if request.method == 'POST':
         user = request.user
-        cart_items = CartItem.objects.filter(user=user)
+        product = get_object_or_404(Medicines, pk=product_id)
+        quantity = int(request.POST.get('quantity', 1))
+        cart_item = CartItem.objects.get(user=user, accessory=product)
 
-        new_bill = Bill.objects.create(customer=user, total_cost=0, created_at=timezone.now())
-
-        for item in cart_items:
-            if item.accessory.p_count >= item.quantity:
-                item.accessory.p_count -= item.quantity
-                item.accessory.save()
-                BillItem.objects.create(
-                    bill=new_bill,
-                    accessory=item.accessory,
-                    quantity=item.quantity,
-                    total_cost=item.total_cost
-                )
-
-        new_bill.save()
-        cart_items.delete()
-        messages.success(request, "Checkout successful.")
-        context = {
-            'new_bill': new_bill,
-        }
-        return render(request, 'checkout.html', context)
+        if quantity > 0:
+            cart_item.quantity = quantity
+            cart_item.total_cost = cart_item.quantity * cart_item.accessory.p_cost
+            cart_item.save()
+            messages.success(request, "Cart item updated.")
+        else:
+            cart_item.delete()
+            messages.success(request, "Item removed from your cart.")
+            cart_item = CartItem.objects.get(user=user, accessory=product)
+        return redirect('cart')
 
 
-# Equipments
+@login_required
+def checkout(request):
+    user = request.user
+    cart_items = CartItem.objects.filter(user=user)
+
+    new_bill = Bill.objects.create(customer=user, total_cost=0, created_at=timezone.now())
+
+    for item in cart_items:
+        if item.accessory.p_count >= item.quantity:
+            item.accessory.p_count -= item.quantity
+            item.accessory.save()
+            BillItem.objects.create(
+                bill=new_bill,
+                accessory=item.accessory,
+                quantity=item.quantity,
+                total_cost=item.total_cost
+            )
+
+    new_bill.save()
+    cart_items.delete()
+    messages.success(request, "Checkout successful.")
+    context = {
+        'new_bill': new_bill,
+    }
+    return render(request, 'checkout.html', context)
+
+
+# Equipments start
 
 def equipments(request):
     equipments = Equipments.objects.all()
@@ -451,6 +455,7 @@ def equipments(request):
     }
 
     return render(request, 'equipments.html', context)
+
 
 def equipment_search(request):
     query1 = request.GET.get('q')
@@ -473,6 +478,7 @@ def equipment_search(request):
 
     return render(request, 'equipments.html', context)
 
+
 @login_required
 def cart1(request):
     user = request.user
@@ -488,6 +494,7 @@ def cart1(request):
         'total_cost1': total_cost1
     }
     return render(request, 'cart1.html', context)
+
 
 @login_required
 def add_to_cart1(request, equipment_id):
@@ -518,6 +525,7 @@ def add_to_cart1(request, equipment_id):
     else:
         return redirect('equipments')
 
+
 @login_required
 def remove_from_cart1(request, equipment_id):
     if request.method == 'POST':
@@ -527,6 +535,7 @@ def remove_from_cart1(request, equipment_id):
         cart_item1.delete()
         messages.success(request, "Item removed from your cart.")
     return redirect('cart1')
+
 
 @login_required
 def update_cart1(request, equipment_id):
@@ -546,6 +555,7 @@ def update_cart1(request, equipment_id):
             messages.success(request, "Item removed from your cart.")
         cart_item1 = CartItem1.objects.get(user=user, accessory1=equipments)
     return redirect('cart1')
+
 
 @login_required
 def checkout1(request):
@@ -573,12 +583,16 @@ def checkout1(request):
     }
     return render(request, 'checkout1.html', context)
 
+
+# ICU BEds
+
 def beds(request):
     beds = Bed.objects.all()
     context = {
         'beds': beds
     }
     return render(request, "beds.html", context)
+
 
 def bed_search(request):
     query_b = request.GET.get('q')
@@ -612,6 +626,7 @@ def bed_search(request):
     }
 
     return render(request, 'beds.html', context)
+
 
 @login_required
 def create_booking(request, bed_id):
@@ -671,6 +686,7 @@ def create_booking(request, bed_id):
         'bed': bed
     }
     return render(request, 'create_booking.html', context)
+
 
 def cancel_booking(request, booking_id, bed_id):
     booking = get_object_or_404(Booking, id=booking_id)

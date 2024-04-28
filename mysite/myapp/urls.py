@@ -4,8 +4,7 @@ from django.views.generic import RedirectView
 
 from . import views
 
-
-urlpatterns =[
+urlpatterns = [
     # admin and basic urls
     path('', views.home, name='home'),
     path('home/', views.home, name='home'),
@@ -19,7 +18,7 @@ urlpatterns =[
     path('user_profile/', views.user_profile, name='user_profile'),
     path('logout/', views.logout, name='logout'),
 
-# product urls
+    # product urls
     path('products/', views.products, name='products'),
     path('product_search/', views.product_search, name='product_search'),
     path('cart/', views.cart, name='cart'),
@@ -37,14 +36,14 @@ urlpatterns =[
     path('remove_from_cart1/<int:equipment_id>/', views.remove_from_cart1, name='remove_from_cart1'),
     path('checkout1/', views.checkout1, name='checkout1'),
 
-
-# doctor appointment urls
+    # doctor appointment urls
     path('doctors/', views.doctors, name='doctors'),
     path('doctor_search/', views.doctor_search, name='doctor_search'),
     path('create_appointment/<int:doctor_id>/', views.create_appointment, name='create_appointment'),
-    path('cancel_appointment/<int:appointment_id>/<int:doctor_id>/', views.cancel_appointment, name='cancel_appointment'),
+    path('cancel_appointment/<int:appointment_id>/<int:doctor_id>/', views.cancel_appointment,
+         name='cancel_appointment'),
 
-#ICU Bookig
+    # ICU Booking
 
     path('beds/', views.beds, name='beds'),
     path('bed_search/', views.bed_search, name='bed_search'),
@@ -52,7 +51,7 @@ urlpatterns =[
     path('cancel_booking/<int:booking_id>/<int:bed_id>/', views.cancel_booking,
          name='cancel_booking'),
 
-# emergency urls not done
+    # emergency urls not done
     # path('emergency/', views.emergency, name='emergency'),
     path('donors/', views.donors, name='donors'),
     path('blood_search/', views.blood_search, name='blood_search'),
@@ -60,6 +59,5 @@ urlpatterns =[
     # error handaling urls
     path('custom_error/', views.custom_error, name='custom_error'),
     path('<path:undefined_path>/', RedirectView.as_view(url='/custom_error/')),
-
 
 ]
