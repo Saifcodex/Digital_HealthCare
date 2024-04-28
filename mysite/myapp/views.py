@@ -646,3 +646,18 @@ def create_booking(request, bed_id):
         'bed': bed
     }
     return render(request, 'create_booking.html', context)
+
+def cancel_booking(request, booking_id, bed_id):
+    booking = get_object_or_404(Booking, id=booking_id)
+    bed = get_object_or_404(Bed, id=bed_id)
+
+    if booking.user == request.user:
+        bed.available_spots1 += 1
+        bed.save()
+        booking.serial_number1 -= 1
+        booking.delete()
+        messages.success(request, "Booking canceled successfully.")
+    else:
+        messages.error(request, "You are not authorized to cancel this booking.")
+
+    return redirect('user_profile')
