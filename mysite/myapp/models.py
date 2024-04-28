@@ -154,3 +154,26 @@ class BillItem1(models.Model):
 
 
 # Equipments end
+
+# ICU BEDS Start
+
+class Bed(models.Model):
+    def __str__(self):
+        return self.hospital_name
+
+    hospital_name = models.CharField(max_length=255)
+    hospital_address = models.CharField(max_length=255)
+    hospital_department = models.CharField(max_length=255)
+    bed_type = models.CharField(max_length=255)
+    status1 = models.BooleanField(default=True)
+    cost1 = models.IntegerField()
+    available_spots1 = models.PositiveIntegerField()
+
+
+# class BedTimeSlot(models.Model):
+#     def __str__(self):
+#         return f"{self.beds.hospital_name} ({self.start_time1} - {self.end_time1})"
+#
+#     beds = models.ForeignKey(Bed, on_delete=models.CASCADE)
+#     start_time1 = models.TimeField()
+#     end_time1 = models.TimeField()
