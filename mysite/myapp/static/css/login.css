@@ -1,0 +1,104 @@
+.login-container {
+    width: 600px;
+    margin: 100px auto;
+    height: 480px;
+    padding: 50px 100px;
+    border-radius: 5px;
+    color: white;
+    vertical-align: top;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(69, 69, 69, 0.355);
+    background-color: rgba(139, 199, 255, 0.282);
+    backdrop-filter: blur(20px);
+  }
+  .login-container :focus-visible{
+    overflow: hidden;
+    outline: none;
+    border: none;
+}
+  h2{
+    font-size: 30px;
+    color:rgb(54, 215, 255);
+    text-align: center;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.394);
+    background-color: rgba(0, 0, 0, 0);
+    color: #fff;
+    transition: border-color 0.5s;
+  }
+
+  .form-control:focus {
+    border-color: #3498db;
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .form-group{
+    text-align: left;
+    padding: 10px;
+    margin: 10px 0px;
+  }
+  .form-group label {
+    color: #fff;
+  }
+
+  .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+select.form-control {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.394);
+    background-color: rgba(0, 0, 0, 0);
+    color: #fff;
+    transition: border-color 0.5s;
+  }
+
+
+  select.form-control option {
+    color: #000;
+  }
+
+
+  select.form-control:focus {
+    outline: none;
+    border-bottom-color: #3498db;
+  }
+
+  .btn-primary {
+    font-family: Mooli, sans-serif;
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0);
+    color: #fff;
+    border: none;
+    margin: 5% 35%;
+    padding: 15px 25px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.5s, transform 0.2s, border-color 0.5s;
+    border: 1px solid rgba(255, 255, 255, 0.394);
+  }
+
+  .btn-primary:hover {
+    background-image: radial-gradient(
+      circle 975px at 2.6% 48.3%,
+      rgb(0, 12, 183) 0%,
+      rgba(95, 184, 224, 1) 99.7%
+    );
+    border: none;
+    color: #fff;
+    border-color: #fff;
+    transform: scale(1.1);
+  }
+
+  .captcha_container{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
