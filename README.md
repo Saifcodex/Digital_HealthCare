@@ -6,7 +6,7 @@ This project is a comprehensive healthcare platform designed to streamline acces
 
 ## Installation
 
-Install my-project with pip
+Install our-project with pip
 
 ```bash
   1. pip install django
