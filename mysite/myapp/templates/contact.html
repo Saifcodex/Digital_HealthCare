@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!-- Header Inner -->
+			<div class="header-inner">
+				<div class="container">
+					<div class="inner">
+						<div class="row">
+							<div class="col-lg-3 col-md-3 col-12">
+								<!-- Start Logo -->
+								<div class="logo">
+									<a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="#"></a>
+								</div>
+								<!-- End Logo -->
+								<!-- Mobile Nav -->
+								<div class="mobile-nav"></div>
+								<!-- End Mobile Nav -->
+							</div>
+							<div class="col-lg-7 col-md-9 col-12">
+								<!-- Main Menu -->
+								<div class="main-menu">
+									<nav class="navigation">
+										<ul class="nav menu">
+											<li><a href="{% url 'home' %}">Home </a></li>
+											<li ><a href="{% url 'doctors' %}">Doctors</a></li>
+											<li ><a href="{% url 'products' %}">Medicines</a></li>
+											<li><a href="{% url 'equipments' %}">Equipments</a></li>
+											<li><a href="{% url 'beds' %}">ICU Beds </a></li>
+											<li><a href="{% url 'donors' %}">Donors </a></li>
+											<li>
+								<div class="get-quote" >
+									{% if user.is_authenticated %}
+									     {% if user.is_superuser %}
+									        <a href="{% url 'admin:index' %}"  class="btn" style="color: white; padding: 10px 10px 10px 10px;">Admin Panel</a><br>
+									     {% else %}
+									         <a href="{% url 'user_profile' %}" class="btn"  style="color: white; padding: 10px 10px 10px 10px;">{{ user.username }}</a><br>
+									     {% endif %}
+									{% else %}
+									   <a href="{% url 'login' %}" class="btn" style="color: white; padding: 10px 10px 10px 10px;">Login</a><br>
+									{% endif %}
+								</div>
+
+											</li>
+										</ul>
+									</nav>
+								</div>
+								<!--/ End Main Menu -->
+							</div>
+<!--LOGIN BAr Start-->
+
+
+							<div class="col-lg-2 col-12">
+								<div class="get-quote">
+									{% if user.is_authenticated %}
+									     {% if user.is_superuser %}
+									        <a href="{% url 'logout' %}" class="btn btn-sm" >Signout</a>
+									     {% else %}
+
+									         <a href="{% url 'logout' %}" class="btn btn-sm" >Sign out</a>
+									     {% endif %}
+									{% else %}
+									   <a href="{% url 'register' %}" class="btn" >Sign-up</a>
+									{% endif %}
+								</div>
+                            </div>
+
+
+
+<!--                            <div class="col-lg-2 col-12">-->
+<!--								<div class="get-quote">-->
+<!--									{% if user.is_authenticated %}-->
+<!--									     {% if user.is_superuser %}-->
+<!--									        <a href="{% url 'admin:index' %}"  >Admin Panel</a><br>-->
+<!--									        <a href="{% url 'logout' %}" class="btn btn-sm" >Signout</a>-->
+<!--									     {% else %}-->
+<!--									         <a href="{% url 'user_profile' %}" class="btn" >{{ user.username }}</a><br>-->
+<!--									         <a href="{% url 'logout' %}" class="btn btn-sm" >Sign out</a>-->
+<!--									     {% endif %}-->
+<!--									{% else %}-->
+<!--									   <a href="{% url 'login' %}" class="btn" >Login</a><br>-->
+<!--									   <a href="{% url 'register' %}" class="btn" >Sign-up</a>-->
+<!--									{% endif %}-->
+<!--								</div>-->
+<!--                            </div>-->
+
+<!--LOGIN BAr End-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/ End Header Inner -->
+		</header>
+		<!-- End Header Area -->
+
+
+{% block extra-styles %}
+<link rel="stylesheet" href="{% static 'css/contact_card.css' %}">
+{% endblock %}
+
+<!--<div class="about-us">-->
+<!--  <h2>Our Team</h2>-->
+<!--  <div class="team-member">-->
+<!--    <img src="{% static 'img/favicon.png' %}" alt="Team Member 1">-->
+<!--    <h3>Saif Ahmed</h3>-->
+<!--    <p>Lead Developer</p>-->
+<!--  </div>-->
+<!--  <div class="team-member">-->
+<!--    <img src="{% static 'img/favicon.png' %}" alt="Team Member 2">-->
+<!--    <h3>Md. AL-Amin</h3>-->
+<!--    <p>Project Manager</p>-->
+<!--  </div>-->
+<!--  <div class="team-member">-->
+<!--    <img src="{% static 'img/favicon.png' %}" alt="Team Member 3">-->
+<!--    <h3>Mehedi Islam</h3>-->
+<!--    <p>Marketing Specialist</p>-->
+<!--  </div>-->
+<!--    <div class="team-member">-->
+<!--    <img src="{% static 'img/favicon.png' %}" alt="Team Member 3">-->
+<!--    <h3>MD. Alamin</h3>-->
+<!--    <p>UX Designer</p>-->
+<!--  </div>-->
+
+
+<div style="height: 500px; margin-top: 100px; " >
+<div class="profile-cards" >
+
+    <div class="profile-card">
+
+      <img src="{% static 'img/1.jpg' %}" alt="Profile Picture">
+
+      <h2>Saif Ahmed</h2>
+
+      <p>Lead Developer</p>
+
+      <button><a href="https://saifcodex.github.io">Portfolio</a></button>
+
+    </div>
+
+    <div class="profile-card" >
+
+      <img src="{% static 'img/2.jpeg' %}" alt="Profile Picture">
+
+      <h2>Md Al-Amin</h2>
+
+      <p>Software Engineer</p>
+
+      <button><a href="https://al-am1n.github.io/">Portfolio</a></button>
+
+    </div>
+
+    <div class="profile-card">
+
+      <img src="{% static 'img/3.jpg' %}" alt="Profile Picture">
+
+      <h2>Md Alamin</h2>
+
+      <p>Graphic Designer</p>
+
+      <button><a href="https://alaminisla.github.io/portfolio-website/">Portfolio</a></button>
+
+    </div>
+
+    <div class="profile-card">
+
+      <img src="{% static 'img/4.jpg' %}" alt="Profile Picture">
+
+      <h2>Mehedi Islam</h2>
+
+      <p>UI/UX Designer</p>
+
+      <button><a href="https://mehedi-islam.github.io/portfolio-responsive-complete-main/">Portfolio</a></button>
+
+    </div>
+
+</div>
+</div>
+
+{% endblock %}
