@@ -587,3 +587,62 @@ def bed_search(request):
     }
 
     return render(request, 'beds.html', context)
+
+@login_required
+def create_booking(request, bed_id):
+    bed = Bed.objects.get(id=bed_id)
+
+    if request.method == 'POST':
+        booking_date = request.POST['booking_date']
+        description1 = request.POST['description1']
+        # booking_time_id = request.POST['booking_time']
+        # time_slot1 = BedTimeSlot.objects.get(id=booking_time_id, bed=bed)
+        selected_date1 = timezone.datetime.strptime(booking_date, '%Y-%m-%d').date()
+        today1 = timezone.now().date()
+
+        if not bed.status1:
+            bed.available_spots1 = bed.available_spots1 + 1
+            bed.status1 = True
+            bed.save()
+
+            if selected_date1 < bed.available_booking_date:
+                messages.error(request,
+                               f"Choose a date after: {bed.available_booking_date.strftime('%d/%B/%Y')}")
+                return redirect(reverse('create_booking', args=[bed_id]))
+        else:
+            if selected_date1 < today1:
+                messages.error(request, "Please select an upcoming date.")
+                return redirect(reverse('create_booking', args=[bed_id]))
+
+        if bed.available_spots1 == 0:
+            bed.status1 = False
+        else:
+            bed.status1 = True
+        bed.save()
+
+        serial_number1 = Booking.objects.filter(bed=bed).count() + 1
+
+        booking = Booking(
+            user=request.user,
+            bed=bed,
+            booking_date=booking_date,
+            description1=description1,
+            # bed_time_slot=time_slot1,
+            serial_number1=serial_number1,
+        )
+        booking.save()
+
+        bed.available_spots1 -= 1
+        if bed.available_spots1 == 0:
+            bed.status1 = False
+        else:
+            bed.status1 = True
+        bed.save()
+
+        messages.success(request, "Successfully booked")
+        return redirect(reverse('beds'))
+
+    context = {
+        'bed': bed
+    }
+    return render(request, 'create_booking.html', context)
