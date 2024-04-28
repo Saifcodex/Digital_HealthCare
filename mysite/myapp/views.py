@@ -547,3 +547,10 @@ def checkout1(request):
         'new_bill1': new_bill1,
     }
     return render(request, 'checkout1.html', context)
+
+def beds(request):
+    beds = Bed.objects.all()
+    context = {
+        'beds': beds
+    }
+    return render(request, "beds.html", context)
