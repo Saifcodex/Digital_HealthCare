@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+			<!-- Header Inner -->
+			<div class="header-inner">
+				<div class="container">
+					<div class="inner">
+						<div class="row">
+							<div class="col-lg-3 col-md-3 col-12">
+								<!-- Start Logo -->
+								<div class="logo">
+									<a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="#"></a>
+								</div>
+								<!-- End Logo -->
+								<!-- Mobile Nav -->
+								<div class="mobile-nav"></div>
+								<!-- End Mobile Nav -->
+							</div>
+							<div class="col-lg-7 col-md-9 col-12">
+								<!-- Main Menu -->
+								<div class="main-menu">
+									<nav class="navigation">
+										<ul class="nav menu">
+											<li><a href="{% url 'home' %}">Home </a></li>
+											<li ><a href="{% url 'doctors' %}">Doctors</a></li>
+											<li ><a href="{% url 'products' %}">Medicines</a></li>
+											<li><a href="{% url 'equipments' %}">Equipments</a></li>
+											<li><a href="{% url 'beds' %}">ICU Beds </a></li>
+											<li><a href="{% url 'donors' %}">Donors </a></li>
+											<li>
+								<div class="get-quote" >
+									{% if user.is_authenticated %}
+									     {% if user.is_superuser %}
+									        <a href="{% url 'admin:index' %}" class="btn"  style="color: white; padding: 10px 10px 10px 10px;">Admin Panel</a><br>
+									     {% else %}
+									         <a href="{% url 'user_profile' %}" class="btn"  style="color: white; padding: 10px 10px 10px 10px;">{{ user.username }}</a><br>
+									     {% endif %}
+									{% else %}
+									   <a href="{% url 'login' %}" class="btn"  style="color: white; padding: 10px 10px 10px 10px;">Login</a><br>
+									{% endif %}
+								</div>
+
+											</li>
+										</ul>
+									</nav>
+								</div>
+								<!--/ End Main Menu -->
+							</div>
+<!--LOGIN BAr Start-->
+
+
+							<div class="col-lg-2 col-12">
+								<div class="get-quote">
+									{% if user.is_authenticated %}
+									     {% if user.is_superuser %}
+									        <a href="{% url 'logout' %}" class="btn btn-sm" >Signout</a>
+									     {% else %}
+
+									         <a href="{% url 'logout' %}" class="btn btn-sm" >Sign out</a>
+									     {% endif %}
+									{% else %}
+									   <a href="{% url 'register' %}" class="btn" >Sign-up</a>
+									{% endif %}
+								</div>
+                            </div>
+
+
+
+<!--                            <div class="col-lg-2 col-12">-->
+<!--								<div class="get-quote">-->
+<!--									{% if user.is_authenticated %}-->
+<!--									     {% if user.is_superuser %}-->
+<!--									        <a href="{% url 'admin:index' %}"  >Admin Panel</a><br>-->
+<!--									        <a href="{% url 'logout' %}" class="btn btn-sm" >Signout</a>-->
+<!--									     {% else %}-->
+<!--									         <a href="{% url 'user_profile' %}" class="btn" >{{ user.username }}</a><br>-->
+<!--									         <a href="{% url 'logout' %}" class="btn btn-sm" >Sign out</a>-->
+<!--									     {% endif %}-->
+<!--									{% else %}-->
+<!--									   <a href="{% url 'login' %}" class="btn" >Login</a><br>-->
+<!--									   <a href="{% url 'register' %}" class="btn" >Sign-up</a>-->
+<!--									{% endif %}-->
+<!--								</div>-->
+<!--                            </div>-->
+
+<!--LOGIN BAr End-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/ End Header Inner -->
+		</header>
+		<!-- End Header Area -->
+
+<!--Content Start From Here-->
+
+{% block extra-styles %}
+<link rel="stylesheet" href="{% static 'css/about_card.css' %}">
+{% endblock %}
+
+<div class="about-us">
+  <h2 class="ourteam">Our Team</h2>
+	<div class="allcard">
+  <div class="team-member">
+    <img src="{% static 'img/favicon.png' %}" alt="Team Member 1">
+    <h3>Saif Ahmed</h3>
+    <p>Lead Developer</p>
+  </div>
+  <div class="team-member">
+    <img src="{% static 'img/favicon.png' %}" alt="Team Member 2">
+    <h3>Md. AL-Amin</h3>
+    <p>Software Engineer</p>
+  </div>
+  <div class="team-member">
+    <img src="{% static 'img/favicon.png' %}" alt="Team Member 3">
+    <h3>Mehedi Islam</h3>
+    <p>Graphic Designer</p>
+  </div>
+    <div class="team-member">
+    <img src="{% static 'img/favicon.png' %}" alt="Team Member 3">
+    <h3>MD. Alamin</h3>
+    <p>UX Designer</p>
+  </div>
+</div>
+  <div class="project-description">
+    <h3>About Us</h3>
+    <p>At Digital HealthCare, we are committed to revolutionizing the healthcare experience. With a focus on accessibility, affordability, and excellence, we strive to provide comprehensive healthcare solutions for all. Our platform offers a wide range of services, including doctor appointments, medication purchase, emergency care, and more, all designed to meet your health needs with convenience and efficiency.
+
+With a team of dedicated professionals and cutting-edge technology, we ensure that your well-being is our top priority. Whether you're seeking routine care or facing a medical emergency, you can trust Digital HealthCare to provide timely and compassionate assistance every step of the way. Join us in shaping the future of healthcare, where quality care meets convenience, only at Digital HealthCare</p>
+
+    <h3>Motivation behind our work</h3>
+    <p>At Digital HealthCare, our motivation is driven by a simple yet profound belief: every individual deserves access to quality healthcare. We are inspired by the opportunity to make a positive impact on people's lives by providing convenient, affordable, and compassionate healthcare solutions.
+
+Our dedication to innovation and excellence stems from a deep-rooted commitment to improving health outcomes and enhancing the overall well-being of our community. We are driven by the desire to empower individuals to take control of their health journey and live their best lives.
+
+Ultimately, it is the profound impact we can have on the lives of our users that fuels our passion and drives us to continuously strive for excellence in everything we do. At Digital HealthCare, we are motivated by the opportunity to make a difference and create a healthier, happier world for all</p>
+
+    <h3>Impact on our lives</h3>
+    <p>At Digital HealthCare, we recognize the profound impact that healthcare has on our lives. By providing accessible, affordable, and high-quality healthcare services, we aim to positively influence the well-being of individuals and communities.
+
+From facilitating timely access to medical care to empowering individuals to take proactive steps towards better health, our platform strives to make a meaningful difference in the lives of our users. Whether it's managing chronic conditions, addressing acute medical needs, or promoting preventive care, we believe that every interaction with our platform has the potential to improve health outcomes and enhance overall quality of life.
+
+By leveraging technology, innovation, and a commitment to excellence, we seek to create a positive impact that extends beyond the digital realm, touching the lives of our users in profound and meaningful ways. At Digital HealthCare, our mission is to empower individuals to live healthier, happier lives, and we are dedicated to making a lasting difference in the communities we serve.</p>
+  </div>
+</div>
+
+{% endblock %}
