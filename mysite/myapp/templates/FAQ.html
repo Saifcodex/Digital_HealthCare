@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+			<!-- Header Inner -->
+			<div class="header-inner">
+				<div class="container">
+					<div class="inner">
+						<div class="row">
+							<div class="col-lg-3 col-md-3 col-12">
+								<!-- Start Logo -->
+								<div class="logo">
+									<a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="#"></a>
+								</div>
+								<!-- End Logo -->
+								<!-- Mobile Nav -->
+								<div class="mobile-nav"></div>
+								<!-- End Mobile Nav -->
+							</div>
+							<div class="col-lg-7 col-md-9 col-12">
+								<!-- Main Menu -->
+								<div class="main-menu">
+									<nav class="navigation">
+										<ul class="nav menu">
+											<li><a href="{% url 'home' %}">Home </a></li>
+											<li ><a href="{% url 'doctors' %}">Doctors</a></li>
+											<li ><a href="{% url 'products' %}">Medicines</a></li>
+											<li><a href="{% url 'equipments' %}">Equipments</a></li>
+											<li><a href="{% url 'beds' %}">ICU Beds </a></li>
+											<li><a href="{% url 'donors' %}">Donors </a></li>
+											<li>
+								<div class="get-quote" >
+									{% if user.is_authenticated %}
+									     {% if user.is_superuser %}
+									        <a href="{% url 'admin:index' %}"  class="btn" style="color: white; padding: 10px 10px 10px 10px;">Admin Panel</a><br>
+									     {% else %}
+									         <a href="{% url 'user_profile' %}" class="btn"  style="color: white; padding: 10px 10px 10px 10px;">{{ user.username }}</a><br>
+									     {% endif %}
+									{% else %}
+									   <a href="{% url 'login' %}" class="btn" style="color: white; padding: 10px 10px 10px 10px;">Login</a><br>
+									{% endif %}
+								</div>
+
+											</li>
+										</ul>
+									</nav>
+								</div>
+								<!--/ End Main Menu -->
+							</div>
+<!--LOGIN BAr Start-->
+
+
+							<div class="col-lg-2 col-12">
+								<div class="get-quote">
+									{% if user.is_authenticated %}
+									     {% if user.is_superuser %}
+									        <a href="{% url 'logout' %}" class="btn btn-sm" >Signout</a>
+									     {% else %}
+
+									         <a href="{% url 'logout' %}" class="btn btn-sm" >Sign out</a>
+									     {% endif %}
+									{% else %}
+									   <a href="{% url 'register' %}" class="btn" >Sign-up</a>
+									{% endif %}
+								</div>
+                            </div>
+
+
+
+<!--                            <div class="col-lg-2 col-12">-->
+<!--								<div class="get-quote">-->
+<!--									{% if user.is_authenticated %}-->
+<!--									     {% if user.is_superuser %}-->
+<!--									        <a href="{% url 'admin:index' %}"  >Admin Panel</a><br>-->
+<!--									        <a href="{% url 'logout' %}" class="btn btn-sm" >Signout</a>-->
+<!--									     {% else %}-->
+<!--									         <a href="{% url 'user_profile' %}" class="btn" >{{ user.username }}</a><br>-->
+<!--									         <a href="{% url 'logout' %}" class="btn btn-sm" >Sign out</a>-->
+<!--									     {% endif %}-->
+<!--									{% else %}-->
+<!--									   <a href="{% url 'login' %}" class="btn" >Login</a><br>-->
+<!--									   <a href="{% url 'register' %}" class="btn" >Sign-up</a>-->
+<!--									{% endif %}-->
+<!--								</div>-->
+<!--                            </div>-->
+
+<!--LOGIN BAr End-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/ End Header Inner -->
+		</header>
+		<!-- End Header Area -->
+
+{% block extra-styles %}
+<link rel="stylesheet" href="{% static 'css/faq.css' %}">
+{% endblock %}
+
+<h1>Frequently Asked Questions</h1>
+
+<div class="faqs-container">
+  <div class="faq active">
+    <h3 class="faq-title">
+     How do I schedule an appointment with a doctor?
+    </h3>
+    <p class="faq-text">
+      You can schedule an appointment with a doctor through our website by selecting your desired specialty, preferred location, and available time slot. Simply follow the prompts to complete the booking process
+    </p>
+    <button class="faq-toggle">
+      <i class="fas fa-chevron-down"></i>
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <div class="faq">
+    <h3 class="faq-title">
+      What medical services do you offer ?
+    </h3>
+    <p class="faq-text">
+      We offer a wide range of medical services, including general consultations, specialty treatments, diagnostic tests, preventive care, rehabilitation therapies, mental health support, and more. Visit our Services page for a comprehensive list of offerings.
+    </p>
+    <button class="faq-toggle">
+      <i class="fas fa-chevron-down"></i>
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <div class="faq">
+    <h3 class="faq-title">
+      How can I purchase medicine and medical equipment from your website?
+    </h3>
+    <p class="faq-text">
+      You can purchase prescribed medicine and medical equipment directly through our website's pharmacy and store sections. Browse our inventory, add items to your cart, and proceed to checkout for a seamless purchasing experience
+    </p>
+    <button class="faq-toggle">
+      <i class="fas fa-chevron-down"></i>
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <div class="faq">
+    <h3 class="faq-title">
+      What are the steps to find a blood donor through your platform?
+    </h3>
+    <p class="faq-text">
+      To find a blood donor, simply navigate to our Blood Donation section and provide details such as blood type, location, and urgency. Our platform will match you with compatible donors in your area, facilitating the donation process.
+    </p>
+    <button class="faq-toggle">
+      <i class="fas fa-chevron-down"></i>
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <div class="faq">
+    <h3 class="faq-title">
+     How do I book an ICU bed in case of an emergency ?
+    </h3>
+    <p class="faq-text">
+       In case of an emergency requiring ICU admission, please contact our emergency hotline immediately. Our dedicated team will assist you in booking an available ICU bed at the nearest hospital for prompt medical attention.
+    </p>
+    <button class="faq-toggle">
+      <i class="fas fa-chevron-down"></i>
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+    <div class="faq">
+    <h3 class="faq-title">
+     How can I provide feedback or report an issue with your services ?
+    </h3>
+    <p class="faq-text">
+       We value your feedback and encourage you to reach out to us through our Contact page or customer support email. Your input helps us improve our services and ensure a positive experience for all users.
+    </p>
+    <button class="faq-toggle">
+      <i class="fas fa-chevron-down"></i>
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+</div>
+
+<script >
+	const toggles = document.querySelectorAll('.faq-toggle');
+
+toggles.forEach(toggle => {
+  toggle.addEventListener('click', () => {
+    toggle.parentNode.classList.toggle('active');
+  });
+});
+
+// SOCIAL PANEL JS
+const floating_btn = document.querySelector('.floating-btn');
+const close_btn = document.querySelector('.close-btn');
+const social_panel_container = document.querySelector('.social-panel-container');
+
+floating_btn.addEventListener('click', () => {
+  social_panel_container.classList.toggle('visible')
+});
+
+close_btn.addEventListener('click', () => {
+  social_panel_container.classList.remove('visible')
+});
+</script>
+
+
+{% endblock %}
