@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+			<!-- Header Inner -->
+			<div class="header-inner">
+				<div class="container">
+					<div class="inner">
+						<div class="row">
+							<div class="col-lg-3 col-md-3 col-12">
+								<!-- Start Logo -->
+								<div class="logo">
+									<a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="#"></a>
+								</div>
+								<!-- End Logo -->
+								<!-- Mobile Nav -->
+								<div class="mobile-nav"></div>
+								<!-- End Mobile Nav -->
+							</div>
+							<div class="col-lg-7 col-md-9 col-12">
+								<!-- Main Menu -->
+								<div class="main-menu">
+									<nav class="navigation">
+										<ul class="nav menu">
+											<li><a href="{% url 'home' %}">Home </a></li>
+											<li ><a href="{% url 'doctors' %}">Doctors</a></li>
+											<li ><a href="{% url 'products' %}">Medicines</a></li>
+											<li><a href="{% url 'equipments' %}">Equipments</a></li>
+											<li><a href="{% url 'beds' %}">ICU Beds </a></li>
+											<li><a href="{% url 'donors' %}">Donors </a></li>
+											<li>
+								<div class="get-quote" >
+									{% if user.is_authenticated %}
+									     {% if user.is_superuser %}
+									        <a href="{% url 'admin:index' %}"  class="btn" style="color: white; padding: 10px 10px 10px 10px;">Admin Panel</a><br>
+									     {% else %}
+									         <a href="{% url 'user_profile' %}" class="btn"  style="color: white; padding: 10px 10px 10px 10px;">{{ user.username }}</a><br>
+									     {% endif %}
+									{% else %}
+									   <a href="{% url 'login' %}" class="btn" style="color: white; padding: 10px 10px 10px 10px;">Login</a><br>
+									{% endif %}
+								</div>
+
+											</li>
+										</ul>
+									</nav>
+								</div>
+								<!--/ End Main Menu -->
+							</div>
+<!--LOGIN BAr Start-->
+
+
+							<div class="col-lg-2 col-12">
+								<div class="get-quote">
+									{% if user.is_authenticated %}
+									     {% if user.is_superuser %}
+									        <a href="{% url 'logout' %}" class="btn btn-sm" >Signout</a>
+									     {% else %}
+
+									         <a href="{% url 'logout' %}" class="btn btn-sm" >Sign out</a>
+									     {% endif %}
+									{% else %}
+									   <a href="{% url 'register' %}" class="btn" >Sign-up</a>
+									{% endif %}
+								</div>
+                            </div>
+
+
+
+<!--                            <div class="col-lg-2 col-12">-->
+<!--								<div class="get-quote">-->
+<!--									{% if user.is_authenticated %}-->
+<!--									     {% if user.is_superuser %}-->
+<!--									        <a href="{% url 'admin:index' %}"  >Admin Panel</a><br>-->
+<!--									        <a href="{% url 'logout' %}" class="btn btn-sm" >Signout</a>-->
+<!--									     {% else %}-->
+<!--									         <a href="{% url 'user_profile' %}" class="btn" >{{ user.username }}</a><br>-->
+<!--									         <a href="{% url 'logout' %}" class="btn btn-sm" >Sign out</a>-->
+<!--									     {% endif %}-->
+<!--									{% else %}-->
+<!--									   <a href="{% url 'login' %}" class="btn" >Login</a><br>-->
+<!--									   <a href="{% url 'register' %}" class="btn" >Sign-up</a>-->
+<!--									{% endif %}-->
+<!--								</div>-->
+<!--                            </div>-->
+
+<!--LOGIN BAr End-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/ End Header Inner -->
+		</header>
+		<!-- End Header Area -->
+
+<!--{% block extra-styles %}-->
+<!--<link rel="stylesheet" href="{% static 'css/register.css' %}" />-->
+<!--{% endblock %}-->
+
+<div class="container">
+  <div class="register-container">
+     <br> <h2>Register</h2>
+      <form method="post" id="registration-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="u_name">Username</label>
+                <input type="text" name="u_name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="u_name">First name</label>
+                <input type="text" name="u_fname" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="u_name">last name</label>
+                <input type="text" name="u_lname" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="u_email">Email</label>
+                <input type="email" name="u_email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="u_password">Password</label>
+                <input type="password" name="u_password" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="u_age">Age</label>
+                <input type="number" name="u_age" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="u_address">Address</label>
+                <input type="text" name="u_address" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="u_mobile">Mobile</label>
+                <input type="text" name="u_mobile" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                <input type="radio" name="u_gender" value="Male" id="male" required>
+                <label for="male">Male</label>
+                <input type="radio" name="u_gender" value="Female" id="female" required>
+                <label for="female">Female</label>
+            </div>
+            <div class="captcha_container">
+                {{ form.captcha }}
+            </div><br>
+            <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+  </div>
+</div><br><br>
+{% endblock %}
