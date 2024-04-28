@@ -177,3 +177,16 @@ class Bed(models.Model):
 #     beds = models.ForeignKey(Bed, on_delete=models.CASCADE)
 #     start_time1 = models.TimeField()
 #     end_time1 = models.TimeField()
+
+
+class Booking(models.Model):
+    def __str__(self):
+        return self.user.username
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    bed = models.ForeignKey(Bed, on_delete=models.CASCADE)
+    # bed_time_slot = models.ForeignKey(BedTimeSlot, on_delete=models.CASCADE)
+    description1 = models.CharField(max_length=1000)
+    booking_date = models.DateField()
+    created_at1 = models.DateTimeField(auto_now_add=True)
+    serial_number1 = models.PositiveIntegerField(default=0)
