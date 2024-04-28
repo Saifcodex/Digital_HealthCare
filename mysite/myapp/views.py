@@ -279,6 +279,32 @@ def cancel_appointment(request, appointment_id, doctor_id):
     return redirect('user_profile')
 
 
+def donors(request):
+    donor = Donor.objects.all()
+    return render(request, 'blood_donors.html', {'donor': donor})
+
+def blood_search(request):
+    query = request.GET.get('q')
+    donor = Donor.objects.all()
+
+    if query:
+        donor = Donor.objects.filter(
+            Q(bloodgroup__iexact=query)
+        ).distinct()
+    else:
+        messages.error(request, "Search bar was empty")
+        return redirect('blood_donors')
+
+    if not donor:
+        messages.error(request, "No blood donors found.")
+        return redirect('blood_donors')
+
+    context = {
+        'donor': donor,
+    }
+    return render(request, 'blood_donors.html', context)
+
+
 
 # Medicine function start
 def products(request):
