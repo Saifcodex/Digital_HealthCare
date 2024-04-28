@@ -52,6 +52,11 @@ urlpatterns =[
     path('cancel_booking/<int:booking_id>/<int:bed_id>/', views.cancel_booking,
          name='cancel_booking'),
 
+# emergency urls not done
+    # path('emergency/', views.emergency, name='emergency'),
+    path('donors/', views.donors, name='donors'),
+    path('blood_search/', views.blood_search, name='blood_search'),
+
     # error handaling urls
     path('custom_error/', views.custom_error, name='custom_error'),
     path('<path:undefined_path>/', RedirectView.as_view(url='/custom_error/')),
