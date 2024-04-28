@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+		<!-- Header Inner -->
+			<div class="header-inner">
+				<div class="container">
+					<div class="inner">
+						<div class="row">
+							<div class="col-lg-3 col-md-3 col-12">
+								<!-- Start Logo -->
+								<div class="logo">
+									<a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="#"></a>
+								</div>
+								<!-- End Logo -->
+								<!-- Mobile Nav -->
+								<div class="mobile-nav"></div>
+								<!-- End Mobile Nav -->
+							</div>
+							<div class="col-lg-7 col-md-9 col-12">
+								<!-- Main Menu -->
+								<div class="main-menu">
+									<nav class="navigation">
+										<ul class="nav menu">
+											<li><a href="{% url 'home' %}">Home </a></li>
+											<li ><a href="{% url 'doctors' %}">Doctors</a></li>
+											<li ><a href="{% url 'products' %}">Medicines</a></li>
+											<li><a href="{% url 'equipments' %}">Equipments</a></li>
+											<li><a href="{% url 'beds' %}">ICU Beds </a></li>
+											<li class="active"><a href="{% url 'donors' %}">Donors </a></li>
+											<li>
+								<div class="get-quote" >
+									{% if user.is_authenticated %}
+									     {% if user.is_superuser %}
+									        <a href="{% url 'admin:index' %}"  class="btn" style="color: white; padding: 10px 10px 10px 10px;">Admin Panel</a><br>
+									     {% else %}
+									         <a href="{% url 'user_profile' %}" class="btn"  style="color: white; padding: 10px 10px 10px 10px;">{{ user.username }}</a><br>
+									     {% endif %}
+									{% else %}
+									   <a href="{% url 'login' %}" class="btn" style="color: white; padding: 10px 10px 10px 10px;">Login</a><br>
+									{% endif %}
+								</div>
+
+											</li>
+										</ul>
+									</nav>
+								</div>
+								<!--/ End Main Menu -->
+							</div>
+<!--LOGIN BAr Start-->
+
+
+							<div class="col-lg-2 col-12">
+								<div class="get-quote">
+									{% if user.is_authenticated %}
+									     {% if user.is_superuser %}
+									        <a href="{% url 'logout' %}" class="btn btn-sm" >Signout</a>
+									     {% else %}
+
+									         <a href="{% url 'logout' %}" class="btn btn-sm" >Sign out</a>
+									     {% endif %}
+									{% else %}
+									   <a href="{% url 'register' %}" class="btn" >Sign-up</a>
+									{% endif %}
+								</div>
+                            </div>
+
+
+
+<!--                            <div class="col-lg-2 col-12">-->
+<!--								<div class="get-quote">-->
+<!--									{% if user.is_authenticated %}-->
+<!--									     {% if user.is_superuser %}-->
+<!--									        <a href="{% url 'admin:index' %}"  >Admin Panel</a><br>-->
+<!--									        <a href="{% url 'logout' %}" class="btn btn-sm" >Signout</a>-->
+<!--									     {% else %}-->
+<!--									         <a href="{% url 'user_profile' %}" class="btn" >{{ user.username }}</a><br>-->
+<!--									         <a href="{% url 'logout' %}" class="btn btn-sm" >Sign out</a>-->
+<!--									     {% endif %}-->
+<!--									{% else %}-->
+<!--									   <a href="{% url 'login' %}" class="btn" >Login</a><br>-->
+<!--									   <a href="{% url 'register' %}" class="btn" >Sign-up</a>-->
+<!--									{% endif %}-->
+<!--								</div>-->
+<!--                            </div>-->
+
+<!--LOGIN BAr End-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/ End Header Inner -->
+		</header>
+		<!-- End Header Area -->
+
+{% block extra-styles %}
+    <link rel="stylesheet" href="{% static 'css/blood_donors.css' %}">
+    <link rel="stylesheet" href="{% static 'css/donors_card.css' %}">
+{% endblock %}
+
+<!--Content Start-->
+
+<div class="search-container">
+    <form id="search-form" action="{% url 'blood_search' %}" method="get">
+        <input type="text" id="search-input" name="q" placeholder="Search blood ">
+        <button type="submit" id="search-button">Search</button>
+    </form>
+</div>
+<br><br>
+<!--Class Content start-->
+
+  <div class="cart-container">
+    {% for donor in donor %}
+    <div class="cart">
+      <h1>Donor</h1>
+      <div class="cart-details" >
+        <p>Name: {{ donor.name }}</p>
+        <p>Age: {{ donor.age }}</p>
+        <p>Blood Group: {{ donor.bloodgroup }}</p>
+        <p>Email: {{ donor.email }}</p>
+        <p>Phone: {{ donor.phone }}</p>
+        <p>Address: {{ donor.address }}</p>
+        <p>Weight: {{ donor.weight }}</p>
+        <p>Previous Donation: {{ donor.previous_donation_date }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+
+<!--  <div class="cart-container">-->
+<!--	  {% for donor in donor %}-->
+<!--	  <div class="cart">-->
+<!--    <h1>Donor</h1>-->
+<!--    <div class="cart-details">-->
+<!--      <p>Name: {{ donor.name }}</p>-->
+<!--      <p>Age: {{ donor.age }}</p>-->
+<!--      <p>Blood Group: {{ donor.bloodgroup }}</p>-->
+<!--      <p>Email: {{ donor.email }}</p>-->
+<!--      <p>Phone: {{ donor.phone }}</p>-->
+<!--      <p>Address: {{ donor.address }}</p>-->
+<!--      <p>Weight: {{ donor.weight }}</p>-->
+<!--      <p>Previous Donation: {{ donor.previous_donation_date }}</p>-->
+<!--    </div><br><br>-->
+<!--	  {% endfor %}-->
+<!--	  </div>-->
+<!--  </div>-->
+{% endblock %}
+
+<!--    Name              : {{ donor.name }}<br>-->
+<!--	Age               : {{ donor.age}}  <br>-->
+<!--	Blood Group       : {{ donor.bloodgroup }}<br>-->
+<!--	Email             : {{ donor.email }}<br>-->
+<!--	Phone             : {{ donor.phone }}<br>-->
+<!--	Address           : {{ donor.address }}<br>-->
+<!--	Weight            : {{ donor.weight }}<br>-->
+<!--	PreviousDonnation : {{ donor.previous_donation_date }}<br>-->
+
