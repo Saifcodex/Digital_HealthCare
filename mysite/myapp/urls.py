@@ -44,6 +44,14 @@ urlpatterns =[
     path('create_appointment/<int:doctor_id>/', views.create_appointment, name='create_appointment'),
     path('cancel_appointment/<int:appointment_id>/<int:doctor_id>/', views.cancel_appointment, name='cancel_appointment'),
 
+#ICU Bookig
+
+    path('beds/', views.beds, name='beds'),
+    path('bed_search/', views.bed_search, name='bed_search'),
+    path('create_booking/<int:bed_id>/', views.create_booking, name='create_booking'),
+    path('cancel_booking/<int:booking_id>/<int:bed_id>/', views.cancel_booking,
+         name='cancel_booking'),
+
     # error handaling urls
     path('custom_error/', views.custom_error, name='custom_error'),
     path('<path:undefined_path>/', RedirectView.as_view(url='/custom_error/')),
