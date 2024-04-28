@@ -15,7 +15,7 @@ Install my-project with pip
   4. pip install pillow
 ```
 
-
+    
 ## Deployment
 
 To deploy this project run( if the above packages not works)
@@ -28,7 +28,7 @@ asgiref	           3.8.1	   3.8.1
 django-recaptcha   4.0.0	   4.0.0
 pillow	           10.3.0	   10.3.0
 pip	               23.2.1	   24.0
-recaptcha	       1.0rc1
+recaptcha	       1.0rc1	
 setuptools	       68.2.0	  69.5.1
 sqlparse	       0.5.0	   0.5.0
 tzdata	           2024.1	  2024.1
@@ -98,4 +98,3 @@ wheel	           0.41.2	  0.43.0
 
 - Undefined path
 - Login acccess
-
