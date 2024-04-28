@@ -113,6 +113,19 @@ class Appointment(models.Model):
     serial_number = models.PositiveIntegerField(default=0)
 
 
+class Donor(models.Model):
+    BLOOD_GROUP_CHOICES = (
+        ('A+', 'A+'),
+        ('B+', 'B+'),
+        ('AB+', 'AB+'),
+        ('O+', 'O+'),
+        ('A-', 'A-'),
+        ('B-', 'B-'),
+        ('AB-', 'AB-'),
+        ('O-', 'O-'),
+    )
+
+
 # Equipment start
 
 class Equipments(models.Model):
