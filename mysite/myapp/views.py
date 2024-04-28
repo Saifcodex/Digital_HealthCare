@@ -554,3 +554,36 @@ def beds(request):
         'beds': beds
     }
     return render(request, "beds.html", context)
+
+def bed_search(request):
+    query_b = request.GET.get('q')
+
+    if query_b:
+        words = query_b.split()
+        bed_query = Q()
+        status_query = Q()
+
+        for word in words:
+            if word.lower() == "available":
+                status_query = Q(status=True)
+
+            elif word.lower() == "unavailable":
+                status_query = Q(status=False)
+
+            else:
+                bed_query |= Q(bed_type__icontains=word)
+
+        beds = Bed.objects.filter(bed_query, status_query)
+    else:
+        messages.error(request, "Search bar was empty")
+        return redirect('beds')
+
+    if not doctors:
+        messages.error(request, "No beds found.")
+        return redirect('beds')
+
+    context = {
+        'beds': beds,
+    }
+
+    return render(request, 'beds.html', context)
