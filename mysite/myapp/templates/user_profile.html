@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+			<!-- Header Inner -->
+			<div class="header-inner">
+				<div class="container">
+					<div class="inner">
+						<div class="row">
+							<div class="col-lg-3 col-md-3 col-12">
+								<!-- Start Logo -->
+								<div class="logo">
+									<a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="#"></a>
+								</div>
+								<!-- End Logo -->
+								<!-- Mobile Nav -->
+								<div class="mobile-nav"></div>
+								<!-- End Mobile Nav -->
+							</div>
+							<div class="col-lg-7 col-md-9 col-12">
+								<!-- Main Menu -->
+								<div class="main-menu">
+									<nav class="navigation">
+										<ul class="nav menu">
+											<li><a href="{% url 'home' %}">Home </a></li>
+											<li ><a href="{% url 'doctors' %}">Doctors</a></li>
+											<li ><a href="{% url 'products' %}">Medicines</a></li>
+											<li><a href="{% url 'equipments' %}">Equipments</a></li>
+											<li><a href="{% url 'beds' %}">ICU Beds </a></li>
+											<li><a href="{% url 'donors' %}">Donors </a></li>
+											<li>
+								<div class="get-quote" >
+									{% if user.is_authenticated %}
+									     {% if user.is_superuser %}
+									        <a href="{% url 'admin:index' %}"  class="btn" style="color: white; padding: 10px 10px 10px 10px;">Admin Panel</a><br>
+									     {% else %}
+									         <a href="{% url 'user_profile' %}" class="btn"  style="color: white; padding: 10px 10px 10px 10px;">{{ user.username }}</a><br>
+									     {% endif %}
+									{% else %}
+									   <a href="{% url 'login' %}" class="btn" style="color: white; padding: 10px 10px 10px 10px;">Login</a><br>
+									{% endif %}
+								</div>
+
+											</li>
+										</ul>
+									</nav>
+								</div>
+								<!--/ End Main Menu -->
+							</div>
+<!--LOGIN BAr Start-->
+
+
+							<div class="col-lg-2 col-12">
+								<div class="get-quote">
+									{% if user.is_authenticated %}
+									     {% if user.is_superuser %}
+									        <a href="{% url 'logout' %}" class="btn btn-sm" >Signout</a>
+									     {% else %}
+
+									         <a href="{% url 'logout' %}" class="btn btn-sm" >Sign out</a>
+									     {% endif %}
+									{% else %}
+									   <a href="{% url 'register' %}" class="btn" >Sign-up</a>
+									{% endif %}
+								</div>
+                            </div>
+
+
+
+<!--                            <div class="col-lg-2 col-12">-->
+<!--								<div class="get-quote">-->
+<!--									{% if user.is_authenticated %}-->
+<!--									     {% if user.is_superuser %}-->
+<!--									        <a href="{% url 'admin:index' %}"  >Admin Panel</a><br>-->
+<!--									        <a href="{% url 'logout' %}" class="btn btn-sm" >Signout</a>-->
+<!--									     {% else %}-->
+<!--									         <a href="{% url 'user_profile' %}" class="btn" >{{ user.username }}</a><br>-->
+<!--									         <a href="{% url 'logout' %}" class="btn btn-sm" >Sign out</a>-->
+<!--									     {% endif %}-->
+<!--									{% else %}-->
+<!--									   <a href="{% url 'login' %}" class="btn" >Login</a><br>-->
+<!--									   <a href="{% url 'register' %}" class="btn" >Sign-up</a>-->
+<!--									{% endif %}-->
+<!--								</div>-->
+<!--                            </div>-->
+
+<!--LOGIN BAr End-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/ End Header Inner -->
+		</header>
+		<!-- End Header Area -->
+
+{% block extra-styles %}
+<link rel="stylesheet" href="{% static 'css/user_info.css' %}" />
+{% endblock %}
+
+
+
+<div class="containerinfo" id="userProfileView" >
+    <h2>User Profile</h2>
+    <div class="info">
+        <p><strong>Username:</strong> {{ user_profile.user.username }}</p>
+        <p><strong>Name:</strong> {{ user_profile.fullname }} </p>
+        <p><strong>Email:</strong> {{ user_profile.user.email }}</p>
+        <p><strong>Age:</strong> {{ user_profile.age }}</p>
+        <p><strong>Address:</strong> {{ user_profile.address }}</p>
+        <p><strong>Mobile:</strong> {{ user_profile.mobile }}</p>
+    </div>
+
+    <div class="button-container">
+        <button id="editButton" class="b1">Edit profile</button>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="delete_account" class="b2">Delete Account</button>
+        </form>
+    </div>
+</div>
+<div class="containerinfo" id="userProfileEdit" style="display: none;">
+    <form id="profileForm" method="post">
+        <h2>Edit your information below:</h2>
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+      <div class="btn-container" style="display: flex;">
+    <button type="button" id="saveButton" style="height: 40px; width: 100px; color: white; background-color: #4CAF50; border: none; margin-right: 10px;">Save</button>
+    <button type="button" id="cancelButton" style="height: 40px; width: 100px; color: white; background-color: #f44336; border: none;">Cancel</button>
+</div>
+
+    </form>
+</div>
+
+{% if appointments %}
+    <h2>List of appointments</h2>
+{% else %}
+    <h2>No appointments found</h2>
+{% endif %}
+
+<div class="containerapp">
+    {% for appointment in appointments %}
+    <div class="appointment">
+        <p><strong>Doctor:</strong> {{ appointment.doctor.name }}</p>
+        <p><strong>Appointment Date:</strong> {{ appointment.appointment_date }}</p>
+        <p><strong>Time:</strong> {{ appointment.doctor_time_slot.start_time }} - {{ appointment.doctor_time_slot.end_time }}</p>
+        <p><strong>Serial:</strong> {{ appointment.serial_number }}</p>
+        <p><strong>Description:</strong> {{ appointment.description }}</p>
+        <form method="post" action="{% url 'cancel_appointment' appointment.id appointment.doctor.id %}">
+            {% csrf_token %}
+            <button type="submit" class="cancel-appointment">Cancel Appointment</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% if bookings %}
+    <h2>List of Bookings</h2>
+{% else %}
+    <h2>No Bookings found</h2>
+{% endif %}
+
+<div class="containerapp">
+    {% for booking in bookings %}
+    <div class="appointment">
+        <p><strong>Hospital:</strong> {{ booking.bed.hospital_name }}</p>
+        <p><strong>Booking Date:</strong> {{ booking.booking_date }}</p>
+        <p><strong>Serial:</strong> {{ booking.serial_number1 }}</p>
+        <p><strong>Description:</strong> {{ booking.description1 }}</p>
+        <form method="post" action="{% url 'cancel_booking' booking.id booking.bed.id %}">
+            {% csrf_token %}
+            <button type="submit" class="cancel-appointment">Cancel Appointment</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+
+{% if bills %}
+    <h2>Your payment history</h2>
+{% else %}
+    <h2>No bills found</h2>
+{% endif %}
+
+<div class="containerbill">
+    {% for bill in bills %}
+    <div class="bill">
+        <p><strong>Customer Name:</strong> {{ bill.customer.username }}</p>
+        <p><strong>Items:</strong>
+            <ul style="list-style: none;">
+                {% for bill_item in bill.billitem_set.all %}
+                    <li>{{ bill_item.accessory.p_name }} ({{ bill_item.quantity }}x{{ bill_item.accessory.p_cost }}={{bill_item.total_cost }}tk)</li>
+                {% endfor %}
+            </ul>
+        </p>
+        <p><strong>Total Cost:</strong> {{ bill.total_item_cost }}tk</p>
+        <p><strong>Created At:</strong> {{ bill.created_at }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% if bills1 %}
+    <h2>Your payment history</h2>
+{% else %}
+    <h2>No bills found</h2>
+{% endif %}
+
+<div class="containerbill">
+    {% for bill1 in bills1 %}
+    <div class="bill">
+        <p><strong>Customer Name:</strong> {{ bill1.customer.username }}</p>
+        <p><strong>Items:</strong>
+            <ul style="list-style: none;">
+                {% for bill_item1 in bill1.billitem1_set.all %}
+                    <li>{{ bill_item1.accessory1.e_name }} ({{ bill_item1.quantity1 }}x{{ bill_item1.accessory1.e_cost }}={{bill_item1.total_cost1 }}tk)</li>
+                {% endfor %}
+            </ul>
+        </p>
+        <p><strong>Total Cost:</strong> {{ bill1.total_item_cost1 }}tk</p>
+        <p><strong>Created At:</strong> {{ bill1.created_at }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const viewMode = document.getElementById("userProfileView");
+        const editMode = document.getElementById("userProfileEdit");
+        const editButton = document.getElementById("editButton");
+        const saveButton = document.getElementById("saveButton");
+        const cancelButton = document.getElementById("cancelButton");
+        const profileForm = document.getElementById("profileForm");
+
+        // Function to toggle between view and edit modes
+        editButton.addEventListener("click", () => {
+            viewMode.style.display = "none";
+            editMode.style.display = "block";
+        });
+
+        cancelButton.addEventListener("click", () => {
+            viewMode.style.display = "block";
+            editMode.style.display = "none";
+        });
+
+        saveButton.addEventListener("click", () => {
+            const formData = new FormData(profileForm);
+            const xhr = new XMLHttpRequest();
+
+            xhr.open("POST", "{% url 'user_profile' %}");
+
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    location.reload();
+                } else {
+                    console.error("Error updating profile");
+                }
+            };
+            xhr.send(formData);
+        });
+    });
+</script>
+
+
+
+
+{% endblock %}
