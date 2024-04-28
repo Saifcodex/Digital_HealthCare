@@ -384,15 +384,15 @@ def add_to_cart(request, product_id):
     else:
         return redirect('products')
 
-   @login_required
-    def remove_from_cart(request, product_id):
-        if request.method == 'POST':
-            user = request.user
-            product = get_object_or_404(Medicines, pk=product_id)
-            cart_item = CartItem.objects.get(user=user, accessory=product)
-            cart_item.delete()
-            messages.success(request, "Item removed from your cart.")
-        return redirect('cart')
+@login_required
+def remove_from_cart(request, product_id):
+    if request.method == 'POST':
+      user = request.user
+      product = get_object_or_404(Medicines, pk=product_id)
+      cart_item = CartItem.objects.get(user=user, accessory=product)
+      cart_item.delete()
+      messages.success(request, "Item removed from your cart.")
+      return redirect('cart')
 
     @login_required
     def update_cart(request, product_id):
@@ -545,7 +545,6 @@ def update_cart1(request, equipment_id):
             cart_item1.delete()
             messages.success(request, "Item removed from your cart.")
         cart_item1 = CartItem1.objects.get(user=user, accessory1=equipments)
-
     return redirect('cart1')
 
 @login_required

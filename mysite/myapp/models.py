@@ -26,6 +26,7 @@ class UserProfile(models.Model):
     )
     gender = models.CharField(max_length=10, choices=GENDER)
 
+
 @receiver(pre_delete, sender=User)
 def delete_user_profile(sender, instance, **kwargs):
     try:
@@ -33,7 +34,6 @@ def delete_user_profile(sender, instance, **kwargs):
         profile.delete()
     except UserProfile.DoesNotExist:
         pass
-
 
 
 # Medicine part start
@@ -113,6 +113,8 @@ class Appointment(models.Model):
     serial_number = models.PositiveIntegerField(default=0)
 
 
+# Donor Start Here
+
 class Donor(models.Model):
     BLOOD_GROUP_CHOICES = (
         ('A+', 'A+'),
@@ -162,6 +164,7 @@ class CartItem1(models.Model):
     quantity1 = models.IntegerField(default=1)
     total_cost1 = models.IntegerField(null=True)
 
+
 class Bill1(models.Model):
     def __str__(self):
         return f"{self.customer.username} - {self.created_at}"
@@ -170,6 +173,7 @@ class Bill1(models.Model):
     total_cost1 = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(default=timezone.now)
     accessories1 = models.ManyToManyField(Equipments, through='BillItem1')
+
 
 class BillItem1(models.Model):
     bill1 = models.ForeignKey(Bill1, on_delete=models.CASCADE)
